@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>墨菲定律：可视化深度解析</title>
+
+    <!-- TailwindCSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Font Awesome CDN for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Google Fonts for professional typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* * Design System inspired by Linear App.
+         * Using CSS variables for a clean, light-theme-first approach.
+        */
+        :root {
+            --bg-primary: #f7f7f8;
+            --bg-secondary: #ffffff;
+            --text-primary: #111113;
+            --text-secondary: #66666e;
+            --border-primary: #e4e4e7;
+            --border-secondary: #f0f0f1;
+            --accent-primary: #4f46e5;
+            --accent-secondary: #e0e7ff;
+        }
+
+        /* Base styles */
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        /* Animation for content fade-in on scroll */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .scroll-fade-in {
+            opacity: 0;
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Smooth scrolling behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom card styles for hover effects */
+        .info-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 md:p-8">
+        
+        <!-- Header Section -->
+        <header class="text-center py-12 md:py-16 scroll-fade-in">
+            <div class="inline-block p-4 rounded-xl mb-6" style="background-color: var(--accent-secondary);">
+                <i class="fa-solid fa-circle-question text-3xl" style="color: var(--accent-primary);"></i>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">墨菲定律，究竟是什么？</h1>
+            <p class="text-lg md:text-xl max-w-2xl mx-auto" style="color: var(--text-secondary);">为什么你排的队总是最慢？为什么吐司掉地上总是黄油那面着地？</p>
+        </header>
+
+        <!-- Main Content Grid -->
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+
+            <!-- Card 1: Psychology -->
+            <section class="info-card rounded-2xl p-6 md:p-8 md:col-span-2 scroll-fade-in">
+                <div class="flex items-center gap-4 mb-4">
+                    <i class="fa-solid fa-brain text-2xl w-8 text-center" style="color: var(--accent-primary);"></i>
+                    <h2 class="text-2xl font-bold">大脑的“同谋”</h2>
+                </div>
+                <p class="text-base mb-6" style="color: var(--text-secondary);">我们之所以觉得墨菲定律“灵验”，很大程度上源于大脑的两种认知偏误。</p>
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="font-semibold">确认偏误 (Confirmation Bias)</h3>
+                        <p style="color: var(--text-secondary);">你会牢牢记住排队时旁边车道超过你的瞬间，却轻易忘记你超过别人的时候。我们天生就会搜集证据，来印证自己“果然很倒霉”的想法。</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold">消极偏误 (Negativity Bias)</h3>
+                        <p style="color: var(--text-secondary);">人类对负面事件的记忆远比正面事件深刻。一次航班延误，就足以让你忽略之前上百次的准点。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Card 2: Mathematics -->
+            <section class="info-card rounded-2xl p-6 md:p-8 scroll-fade-in">
+                <div class="flex items-center gap-4 mb-4">
+                    <i class="fa-solid fa-infinity text-2xl w-8 text-center" style="color: var(--accent-primary);"></i>
+                    <h2 class="text-2xl font-bold">数学的“必然”</h2>
+                </div>
+                <p class="mb-4" style="color: var(--text-secondary);">英国统计学家大卫·汉德的《不可能原则》指出：</p>
+                <blockquote class="border-l-4 pl-4 italic" style="border-color: var(--border-primary);">
+                    在足够多的机会之下，概率再小的事件，也终将发生。
+                </blockquote>
+                <p class="mt-4" style="color: var(--text-secondary);">你一生会遇到数百万件事，即便“出错”的概率只有0.01%，你也会经历数百次。“坏事发生”不是因为你倒霉，而是因为概率在起作用。</p>
+            </section>
+
+            <!-- Card 3: History/Origin -->
+            <section class="info-card rounded-2xl p-6 md:p-8 scroll-fade-in">
+                <div class="flex items-center gap-4 mb-4">
+                    <i class="fa-solid fa-user-gear text-2xl w-8 text-center" style="color: var(--accent-primary);"></i>
+                    <h2 class="text-2xl font-bold">工程的“初衷”</h2>
+                </div>
+                <p class="mb-4" style="color: var(--text-secondary);">墨菲定律的初衷并非关于“运气”，而是一个严谨的工程学原则。</p>
+                <p class="mb-4" style="color: var(--text-secondary);">它源自1949年美国空军工程师爱德华·墨菲上尉，他发现一名技术员将16个精密传感器全部接反后，提出了著名的：</p>
+                <blockquote class="border-l-4 pl-4 italic" style="border-color: var(--border-primary);">
+                    “如果有任何可能出错的方式，就一定会有人那么做。”
+                </blockquote>
+                 <p class="mt-4" style="color: var(--text-secondary);">其真正含义是：设计时必须假定最坏情况会发生，并用冗余、备份和防呆设计来杜绝它。</p>
+            </section>
+
+            <!-- Card 4: Physics & Chart -->
+            <section class="info-card rounded-2xl p-6 md:p-8 md:col-span-2 scroll-fade-in">
+                <div class="flex items-center gap-4 mb-4">
+                    <i class="fa-solid fa-apple-whole text-2xl w-8 text-center" style="color: var(--accent-primary);"></i>
+                    <h2 class="text-2xl font-bold">物理的“真相”：吐司难题</h2>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+                    <div>
+                        <p class="mb-4" style="color: var(--text-secondary);">科学家罗伯特·马修斯的研究指出，这与运气无关，纯粹是物理学。</p>
+                        <ul class="list-disc list-inside space-y-2" style="color: var(--text-secondary);">
+                            <li>桌子的高度（约0.7-2米）和初始旋转，决定了吐司在空中通常**只能翻转约半圈**。</li>
+                            <li>因为开始时黄油面朝上，翻半圈后自然就是黄油面朝下了。</li>
+                        </ul>
+                    </div>
+                    <div class="w-full h-64">
+                        <canvas id="toastChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer Section -->
+        <footer class="text-center mt-16 py-8 border-t scroll-fade-in" style="border-color: var(--border-primary);">
+            <p class="font-semibold" style="color: var(--text-primary);">沉浸式翻译</p>
+            <p class="text-sm" style="color: var(--text-secondary);">© 2025 Immersive Translate. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            // --- INTERACTION: SCROLL FADE-IN ANIMATION ---
+            // This script adds a 'is-visible' class to elements when they enter the viewport.
+            const scrollElements = document.querySelectorAll('.scroll-fade-in');
+
+            const elementInView = (el, dividend = 1) => {
+                const elementTop = el.getBoundingClientRect().top;
+                return (
+                    elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
+                );
+            };
+
+            const handleScrollAnimation = () => {
+                scrollElements.forEach((el) => {
+                    if (elementInView(el, 1.25)) {
+                        el.classList.add('is-visible');
+                    }
+                });
+            };
+
+            // Initial check
+            handleScrollAnimation();
+            window.addEventListener('scroll', handleScrollAnimation);
+
+
+            // --- CHART.JS VISUALIZATION: TOAST PROBLEM ---
+            // This script renders the bar chart for the toast experiment data.
+            const ctx = document.getElementById('toastChart').getContext('2d');
+            
+            const toastChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['随机概率', '实验结果'],
+                    datasets: [{
+                        label: '概率 (%)',
+                        data: [50, 62],
+                        backgroundColor: [
+                            'rgba(165, 180, 252, 0.6)', // A lighter shade of the accent color
+                            'rgba(79, 70, 229, 0.6)'    // The main accent color
+                        ],
+                        borderColor: [
+                            'rgba(165, 180, 252, 1)',
+                            'rgba(79, 70, 229, 1)'
+                        ],
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        barPercentage: 0.6,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y', // Horizontal bar chart
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: {
+                                display: false,
+                                drawBorder: false,
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%'
+                                }
+                            }
+                        },
+                        y: {
+                           grid: {
+                                display: false,
+                           }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: '吐司黄油面着地概率',
+                            padding: {
+                                bottom: 20
+                            },
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` 概率: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
