@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI翻译引擎巅峰对决 | Immersive Translate</title>
+    
+    <!-- TailwindCSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Font Awesome CDN for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Google Fonts for professional typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Define color variables for easy theme switching, inspired by Linear's design system */
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f7f7f8;
+            --text-primary: #171717;
+            --text-secondary: #666666;
+            --border-primary: #e5e5e6;
+            --border-secondary: #ededee;
+            --accent-primary: #5E5CEE;
+        }
+
+        html.dark {
+            --bg-primary: #111113;
+            --bg-secondary: #1C1C1E;
+            --text-primary: #EDEDEE;
+            --text-secondary: #8A8A8E;
+            --border-primary: #2D2D2F;
+            --border-secondary: #242426;
+        }
+
+        /* Base styles */
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Animation for content fade-in on load */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.7s ease-out forwards;
+        }
+        
+        /* Smooth scrolling behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="container mx-auto p-4 sm:p-6 md:p-8">
+        
+        <!-- Header Section -->
+        <header class="flex justify-between items-center mb-12 md:mb-16 fade-in">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center">
+                   <i class="fa-solid fa-language text-white text-lg"></i>
+                </div>
+                <h1 class="text-xl md:text-2xl font-bold" style="color: var(--text-primary);">AI翻译对决</h1>
+            </div>
+            <button id="theme-toggle" class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors duration-300" style="background-color: var(--bg-secondary); border: 1px solid var(--border-secondary);">
+                <i id="theme-icon" class="fa-solid text-lg" style="color: var(--text-secondary);"></i>
+            </button>
+        </header>
+
+        <!-- Original Quote Section -->
+        <section class="mb-12 md:mb-16 fade-in" style="animation-delay: 0.1s;">
+            <div class="p-6 md:p-8 rounded-xl" style="background-color: var(--bg-secondary); border: 1px solid var(--border-secondary);">
+                <h2 class="text-lg font-semibold mb-4" style="color: var(--text-primary);">原文挑战</h2>
+                <blockquote class="text-xl md:text-2xl font-serif italic" style="color: var(--text-primary);">
+                    "And those who were seen dancing were thought to be insane by those who could not hear the music."
+                </blockquote>
+                <p class="text-right mt-3" style="color: var(--text-secondary);">— Friedrich Nietzsche</p>
+            </div>
+        </section>
+
+        <!-- Tiers Container -->
+        <main id="tiers-container" class="space-y-16"></main>
+
+        <!-- Footer Section -->
+        <footer class="text-center mt-20 py-8 border-t fade-in" style="border-color: var(--border-primary); animation-delay: 0.5s;">
+            <p class="text-lg" style="color: var(--text-secondary);">工具的价值，在于赋予您选择的权利。</p>
+            <p class="font-semibold mt-2 text-xl" style="color: var(--accent-primary);">沉浸式翻译</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- DATA ---
+            const translationData = [
+                { tier: 1, rank: 1, model: "Gemini 2.5 Pro", score: 19.25, translation: "在听不见音乐的人看来，那些翩翩起舞的人，是疯癫的。", scores: { fidelity: 5.0, fluency: 5.0, grace: 5.0, metaphor: 4.5 }, review: "近乎完美的典范之作。语序重构得极为优雅自然，'翩翩起舞' 和 '疯癫' 的选词精准而高级，不仅传神地描绘了姿态和状态，更极大地提升了文学性和哲学思辨的意境。" },
+                { tier: 1, rank: 2, model: "KIMI K2", score: 18.25, translation: "“那些翩翩起舞的人，在听不见音乐的人眼里，都像是疯了。”", scores: { fidelity: 5.0, fluency: 5.0, grace: 4.5, metaphor: 4.0 }, review: "同样是顶级水准。与Gemini一样选择了 '翩翩起舞' 这一精妙的词汇。语序处理也非常出色。“都像是疯了”的表达略微偏向口语化，比“是疯癫的”少了一分书面上的典雅，但同样传神。" },
+                { tier: 1, rank: 3, model: "DeepSeek V3", score: 16.50, translation: "那些听不见音乐的人，会认为跳舞的人疯了。", scores: { fidelity: 5.0, fluency: 5.0, grace: 3.5, metaphor: 3.0 }, review: "现代汉语的极致流畅。它完全摆脱了原文的语序束缚，用最地道的中文主动语态进行了重构。缺点在于词语选用过于直白，牺牲了原文的文学意境，但作为一种清晰易懂的现代解读，无可挑剔。" },
+                { tier: 2, rank: 4, model: "ChatGPT / Grok / 通义 / 豆包 / DEEPL / CLAUDE 3.5 等", score: 12.00, translation: "“那些被看见(看到)在跳舞的人，被那些听不到音乐的人认为是(视为)疯子。”", scores: { fidelity: 5.0, fluency: 2.0, grace: 2.0, metaphor: 3.0 }, review: "“翻译腔”的重灾区。“被...被...”的句式在中文中极为罕见和生硬，严重影响了流畅度和美感。虽然准确地传达了字面意思，但完全丧失了作为一句哲学名言的韵味和力量。它们更像是合格的“机器”，而非有灵性的“译者”。" },
+                { tier: 3, rank: 11, model: "谷歌翻译 (Google Translate)", score: 11.25, translation: "“而那些听不到音乐的人则认为那些跳舞的人疯了。”", scores: { fidelity: 4.5, fluency: 4.5, grace: 3.0, metaphor: 3.0 }, review: "语序处理得不错，比第二梯队好很多。但开头的“而...则...”结构略显冗余，并且它遗漏了原文中“被看见（were seen）”这一层“旁观者”的视角，信息有轻微损失。" },
+                { tier: 3, rank: 12, model: "微软翻译 (Microsoft Translator)", score: 9.00, translation: "“那些看到跳舞的人被那些听不到音乐的人认为是疯了。”", scores: { fidelity: 3.0, fluency: 2.0, grace: 2.0, metaphor: 2.0 }, review: "出现了明显的逻辑错误。它将“被看到在跳舞的人”错误地翻译成了“看到跳舞的人”，主语的性质发生了根本性改变，导致句意扭曲。" },
+                { tier: 3, rank: 13, model: "智谱GLM (Zhipu GLM)", score: 8.75, translation: "那些看见跳舞的人，被那些听不见音乐的人认为是不正常的。", scores: { fidelity: 3.0, fluency: 2.5, grace: 1.5, metaphor: 2.0 }, review: "同样犯了和微软翻译一样的逻辑错误。此外，将“insane”翻译为“不正常的”，虽然意思相近，但完全丧失了原文中“疯癫”这一强烈的精神状态标签，显得过于平淡和保守。" }
+            ];
+
+            // FIX: Declare charts array early to avoid ReferenceError
+            const charts = []; 
+
+            // --- THEME SWITCHING LOGIC ---
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+            const docElement = document.documentElement;
+
+            const applyTheme = (theme) => {
+                if (theme === 'dark') {
+                    docElement.classList.add('dark');
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                } else {
+                    docElement.classList.remove('dark');
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                }
+                updateAllChartsTheme();
+            };
+
+            const toggleTheme = () => {
+                const currentTheme = docElement.classList.contains('dark') ? 'dark' : 'light';
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                localStorage.setItem('theme', newTheme);
+                applyTheme(newTheme);
+            };
+
+            themeToggle.addEventListener('click', toggleTheme);
+
+            // --- DYNAMIC CONTENT RENDERING ---
+            const tiersContainer = document.getElementById('tiers-container');
+            const tiers = {
+                1: { title: "第一梯队：卓越级", icon: 'fa-award', color: 'text-indigo-500', data: [] },
+                2: { title: "第二梯队：生硬的忠实", icon: 'fa-medal', color: 'text-slate-500', data: [] },
+                3: { title: "第三梯队：存在瑕疵", icon: 'fa-circle-exclamation', color: 'text-rose-500', data: [] }
+            };
+
+            translationData.forEach(item => tiers[item.tier].data.push(item));
+
+            Object.values(tiers).forEach((tier, index) => {
+                const tierSection = document.createElement('section');
+                tierSection.className = `fade-in`;
+                tierSection.style.animationDelay = `${0.2 + index * 0.1}s`;
+                tierSection.innerHTML = `
+                    <div class="flex items-center mb-8 gap-4">
+                        <i class="fa-solid ${tier.icon} text-2xl md:text-3xl ${tier.color}"></i>
+                        <h2 class="text-2xl md:text-3xl font-bold" style="color: var(--text-primary);">${tier.title}</h2>
+                    </div>
+                    <div class="grid grid-cols-1 ${tier.data.length > 1 && index === 0 ? 'lg:grid-cols-3' : 'lg:grid-cols-2'} gap-6 md:gap-8">
+                        ${tier.data.map(item => createCardHTML(item)).join('')}
+                    </div>
+                `;
+                tiersContainer.appendChild(tierSection);
+            });
+            
+            // Initialize charts after cards are in the DOM
+            translationData.forEach(item => createChart(item));
+
+             // Set initial theme based on localStorage or system preference after everything is ready
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            applyTheme(savedTheme || (systemPrefersDark ? 'dark' : 'light'));
+
+            function createCardHTML(item) {
+                return `
+                    <div class="rounded-xl p-6 flex flex-col transition-all duration-300" style="background-color: var(--bg-secondary); border: 1px solid var(--border-secondary); box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-lg font-semibold" style="color: var(--text-primary);">${item.model}</h3>
+                                <p class="text-sm" style="color: var(--text-secondary);">Rank #${item.rank}</p>
+                            </div>
+                            <span class="text-lg font-bold" style="color: var(--accent-primary);">${item.score.toFixed(2)}</span>
+                        </div>
+                        <blockquote class="text-lg flex-grow mb-6 py-4 border-t border-b" style="color: var(--text-primary); border-color: var(--border-primary);">
+                            ${item.translation}
+                        </blockquote>
+                        <div class="mb-6">
+                            <div class="relative h-48 md:h-56 w-full">
+                                <canvas id="chart-${item.rank}"></canvas>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2" style="color: var(--text-primary);">简评</h4>
+                            <p class="text-sm" style="color: var(--text-secondary);">${item.review}</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // --- CHARTING LOGIC ---
+            function getChartOptions() {
+                const isDark = docElement.classList.contains('dark');
+                const gridColor = isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)';
+                const pointLabelColor = isDark ? '#EDEDEE' : '#171717';
+                const ticksColor = isDark ? '#8A8A8E' : '#666666';
+
+                return {
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: gridColor },
+                            grid: { color: gridColor },
+                            pointLabels: { color: pointLabelColor, font: { size: 12, family: 'Inter' } },
+                            ticks: { color: ticksColor, backdropColor: 'rgba(0,0,0,0)', stepSize: 1, font: { size: 10 } },
+                            min: 0,
+                            max: 5
+                        }
+                    },
+                    plugins: { legend: { display: false } }
+                };
+            }
+
+            function createChart(item) {
+                const ctx = document.getElementById(`chart-${item.rank}`).getContext('2d');
+                const chart = new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['忠实度', '流畅度', '意境文采', '隐喻处理'],
+                        datasets: [{
+                            label: '得分',
+                            data: [item.scores.fidelity, item.scores.fluency, item.scores.grace, item.scores.metaphor],
+                            backgroundColor: 'rgba(94, 92, 238, 0.15)',
+                            borderColor: 'rgba(94, 92, 238, 1)',
+                            borderWidth: 2,
+                            pointBackgroundColor: 'rgba(94, 92, 238, 1)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgba(94, 92, 238, 1)'
+                        }]
+                    },
+                    options: getChartOptions()
+                });
+                charts.push(chart);
+            }
+            
+            function updateAllChartsTheme() {
+                charts.forEach(chart => {
+                    chart.options = getChartOptions();
+                    chart.update();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
