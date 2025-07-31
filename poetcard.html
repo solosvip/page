@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文字卡片生成器 (v5 - 华丽渐变版)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&family=Noto+Sans+SC:wght@100..900&family=Source+Serif+4:wght@200..900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 全局样式 --- */
+        :root {
+            --card-bg-light: #ffffff;
+            --card-bg-dark: #1a1a1a;
+            --text-color-light: #1f2937;
+            --text-color-dark: #e5e7eb;
+            --sub-text-light: #6b7280;
+            --sub-text-dark: #9ca3af;
+            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --border-radius: 16px;
+            --font-family-base: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family-base);
+            margin: 0;
+            background-color: #f3f4f6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        /* --- 主布局 --- */
+        .container {
+            display: flex;
+            gap: 2rem;
+            width: 100%;
+            max-width: 1600px;
+            align-items: flex-start;
+        }
+
+        .controls {
+            flex-basis: 30%;
+            min-width: 350px;
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .preview {
+            flex-basis: 70%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 1rem;
+        }
+
+        /* --- 控件样式 --- */
+        .control-group { margin-bottom: 1.5rem; }
+        .control-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: #374151; }
+        
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            font-family: inherit;
+            background-color: #fff;
+        }
+        
+        input[type="file"] { font-size: 0.9rem; }
+        input[type="file"]::file-selector-button { margin-right: 1rem; border: none; background: #e5e7eb; padding: 0.5rem 0.75rem; border-radius: 6px; color: #374151; cursor: pointer; transition: background-color .2s ease-in-out; }
+        input[type="file"]::file-selector-button:hover { background: #d1d5db; }
+        input[type="range"] { width: 100%; }
+        textarea { min-height: 120px; resize: vertical; }
+        
+        .color-options { display: grid; grid-template-columns: repeat(auto-fill, minmax(40px, 1fr)); gap: 0.5rem; }
+        .color-box { width: 100%; height: 40px; border-radius: 6px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; position: relative; }
+        .color-box.active { border-color: #3b82f6; transform: scale(1.1); }
+        .color-box:hover .tooltip { visibility: visible; opacity: 1; }
+        .tooltip { visibility: hidden; width: 120px; background-color: #333; color: #fff; text-align: center; border-radius: 6px; padding: 5px 0; position: absolute; z-index: 1; bottom: 125%; left: 50%; margin-left: -60px; opacity: 0; transition: opacity 0.3s; }
+        .tooltip::after { content: ""; position: absolute; top: 100%; left: 50%; margin-left: -5px; border-width: 5px; border-style: solid; border-color: #333 transparent transparent transparent; }
+
+        .mode-toggle { display: flex; border: 1px solid #d1d5db; border-radius: 8px; overflow: hidden; }
+        .mode-btn { flex: 1; padding: 0.75rem; border: none; background: #fff; cursor: pointer; font-size: 1rem; font-weight: 500; transition: background-color 0.2s, color 0.2s; }
+        .mode-btn:first-child { border-right: 1px solid #d1d5db; }
+        .mode-btn.active { background-color: #374151; color: #fff; }
+
+        .download-btn { width: 100%; padding: 1rem; font-size: 1.1rem; font-weight: 600; color: #fff; background-color: #2563eb; border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.2s; }
+        .download-btn:hover { background-color: #1d4ed8; }
+        .download-btn:disabled { background-color: #9ca3af; cursor: not-allowed; }
+        
+        .footer-note { text-align: center; margin-top: 2rem; color: #9ca3af; }
+
+        /* --- 卡片画布样式 --- */
+        #canvas {
+            width: 100%;
+            max-width: 700px;
+            min-height: 450px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            transition: background 0.5s ease-in-out, max-width 0.3s;
+            box-sizing: border-box;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 450px;
+            background-color: var(--card-bg-light);
+            color: var(--text-color-light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2.5rem;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s, max-width 0.3s;
+            font-family: var(--font-family-base);
+        }
+        .card.dark-mode { background-color: var(--card-bg-dark); color: var(--text-color-dark); }
+        .card-header { display: flex; align-items: center; margin-bottom: 1.5rem; }
+        
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: #d1d5db;
+            margin-right: 1rem;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%239ca3af'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
+            background-size: 70%;
+            background-position: center;
+            background-repeat: no-repeat;
+            flex-shrink: 0;
+        }
+
+        .name { font-weight: 700; font-size: 1.1rem; }
+        .card-content { font-size: 1.25rem; line-height: 1.6; word-wrap: break-word; white-space: pre-wrap; font-weight: 400; }
+        .card-footer { margin-top: 1.5rem; font-size: 0.9rem; color: var(--sub-text-light); }
+        .card.dark-mode .card-footer { color: var(--sub-text-dark); }
+
+        /* --- 渐变背景 --- */
+        .gradient-1 { background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%); }
+        .gradient-2 { background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%); }
+        .gradient-3 { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); }
+        .gradient-4 { background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%); }
+        .gradient-5 { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
+        .gradient-6 { background: linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%); }
+        .gradient-7 { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); }
+        .gradient-8 { background: linear-gradient(135deg, #485563 0%, #29323c 100%); }
+        /* --- 20款全新渐变色 --- */
+        .gradient-9 { background: linear-gradient(to top, #30cfd0 0%, #330867 100%); }
+        .gradient-10 { background: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%); }
+        .gradient-11 { background: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%); }
+        .gradient-12 { background: linear-gradient(to right, #868f96 0%, #596164 100%); }
+        .gradient-13 { background: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%); }
+        .gradient-14 { background: linear-gradient(120deg, #f093fb 0%, #f5576c 100%); }
+        .gradient-15 { background: linear-gradient(to right, #fa709a 0%, #fee140 100%); }
+        .gradient-16 { background: linear-gradient(to top, #c471f5 0%, #fa71cd 100%); }
+        .gradient-17 { background: linear-gradient(to right, #43e97b 0%, #38f9d7 100%); }
+        .gradient-18 { background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%); }
+        .gradient-19 { background: linear-gradient(to right, #f83600 0%, #f9d423 100%); }
+        .gradient-20 { background: linear-gradient(to right, #d299c2 0%, #fef9d7 100%); }
+        .gradient-21 { background: linear-gradient(to top, #9890e3 0%, #b1f4cf 100%); }
+        .gradient-22 { background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%); }
+        .gradient-23 { background: linear-gradient(to right, #74ebd5 0%, #acb6e5 100%); }
+        .gradient-24 { background: linear-gradient(to right, #ff758c 0%, #ff7eb3 100%); }
+        .gradient-25 { background: linear-gradient(to right, #1e3c72 0%, #2a5298 100%); }
+        .gradient-26 { background: linear-gradient(to right, #c02425 0%, #f0cb35 100%); }
+        .gradient-27 { background: linear-gradient(to right, #16222a 0%, #3a6073 100%); }
+        .gradient-28 { background: linear-gradient(to right, #000000 0%, #434343 100%); }
+
+        /* 响应式布局 */
+        @media (max-width: 1024px) {
+            .container { flex-direction: column; align-items: center; }
+            body { padding: 1rem; }
+            .controls { width: 100%; max-width: 600px; box-sizing: border-box; position: static; }
+            .preview { width: 100%; }
+            #canvas { width: 100%; box-sizing: border-box; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="controls">
+            <h2>文字卡片生成器</h2>
+            
+            <div class="control-group">
+                <label for="name-input">昵称</label>
+                <input type="text" id="name-input" value="Friendly Bob">
+            </div>
+
+            <div class="control-group">
+                <label for="avatar-upload">上传头像</label>
+                <input type="file" id="avatar-upload" accept="image/*">
+            </div>
+
+            <div class="control-group">
+                <label for="text-input">内容</label>
+                <textarea id="text-input" placeholder="在这里输入你的文字...">捕捉并分享一段想法，将其作为美丽的图片。</textarea>
+            </div>
+
+            <div class="control-group">
+                <label for="font-family-selector">选择字体</label>
+                <select id="font-family-selector">
+                    <option value="'Inter', var(--font-family-base)">Inter (现代)</option>
+                    <option value="'Noto Sans SC', sans-serif">Noto Sans SC (思源黑体)</option>
+                    <option value="'Source Serif 4', serif">Source Serif 4 (衬线体)</option>
+                    <option value="'JetBrains Mono', monospace">JetBrains Mono (等宽)</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label>背景颜色</label>
+                <div id="color-selector" class="color-options"></div>
+            </div>
+
+            <div class="control-group">
+                <label>卡片模式</label>
+                <div class="mode-toggle">
+                    <button id="light-mode-btn" class="mode-btn active">浅色</button>
+                    <button id="dark-mode-btn" class="mode-btn">深色</button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="background-width-slider">背景宽度</label>
+                <input type="range" id="background-width-slider" min="500" max="1400" value="700" step="20">
+            </div>
+
+            <div class="control-group">
+                <label for="card-width-slider">卡片宽度</label>
+                <input type="range" id="card-width-slider" min="300" max="1080" value="450" step="10">
+            </div>
+
+            <div class="control-group">
+                <label for="font-size-slider">字体大小</label>
+                <input type="range" id="font-size-slider" min="16" max="40" value="22" step="1">
+            </div>
+            
+            <div class="control-group">
+                <label for="font-weight-slider">字体粗细</label>
+                <input type="range" id="font-weight-slider" min="100" max="900" value="400" step="100">
+            </div>
+            
+            <button id="download-btn" class="download-btn">下载图片</button>
+        </div>
+
+        <div class="preview">
+            <div id="canvas" class="gradient-1">
+                <div id="card" class="card">
+                    <div class="card-header">
+                        <div class="avatar" id="avatar-output"></div>
+                        <div id="name-output" class="name">Friendly Bob</div>
+                    </div>
+                    <div id="content-output" class="card-content">捕捉并分享一段想法，将其作为美丽的图片。</div>
+                    <div id="timestamp-output" class="card-footer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <p class="footer-note">灵感来源 Poet.so | Gemini 为您创建</p>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- 元素获取 ---
+            const elements = {
+                nameInput: document.getElementById('name-input'),
+                avatarUpload: document.getElementById('avatar-upload'),
+                textInput: document.getElementById('text-input'),
+                fontFamilySelector: document.getElementById('font-family-selector'),
+                colorSelector: document.getElementById('color-selector'),
+                lightModeBtn: document.getElementById('light-mode-btn'),
+                darkModeBtn: document.getElementById('dark-mode-btn'),
+                backgroundWidthSlider: document.getElementById('background-width-slider'),
+                cardWidthSlider: document.getElementById('card-width-slider'),
+                fontSizeSlider: document.getElementById('font-size-slider'),
+                fontWeightSlider: document.getElementById('font-weight-slider'),
+                downloadBtn: document.getElementById('download-btn'),
+                nameOutput: document.getElementById('name-output'),
+                contentOutput: document.getElementById('content-output'),
+                avatarOutput: document.getElementById('avatar-output'),
+                timestampOutput: document.getElementById('timestamp-output'),
+                card: document.getElementById('card'),
+                canvas: document.getElementById('canvas'),
+            };
+
+            // --- 初始设置 ---
+            const gradients = [
+                { class: 'gradient-1', name: '经典' }, { class: 'gradient-2', name: '薄荷' },
+                { class: 'gradient-3', name: '樱花' }, { class: 'gradient-4', name: '青柠' },
+                { class: 'gradient-5', name: '薰衣草' }, { class: 'gradient-6', name: '棉花糖' },
+                { class: 'gradient-7', name: '蜜桃' }, { class: 'gradient-8', name: '深空灰' },
+                { class: 'gradient-9', name: '赛博魅影' }, { class: 'gradient-10', name: '盛夏浆果' },
+                { class: 'gradient-11', name: '田园春色' }, { class: 'gradient-12', name: '钢铁之躯' },
+                { class: 'gradient-13', name: '清晨薄雾' }, { class: 'gradient-14', name: '浪漫星云' },
+                { class: 'gradient-15', name: '芒果之恋' }, { class: 'gradient-16', name: '电子兰' },
+                { class: 'gradient-17', name: '翡翠之光' }, { class: 'gradient-18', name: '蔚蓝海岸' },
+                { class: 'gradient-19', name: '落日熔金' }, { class: 'gradient-20', name: '晨曦微露' },
+                { class: 'gradient-21', name: '紫霞仙子' }, { class: 'gradient-22', name: '皇家蓝' },
+                { class: 'gradient-23', name: '宁静之湖' }, { class: 'gradient-24', name: '甜心芭比' },
+                { class: 'gradient-25', name: '深海' }, { class: 'gradient-26', name: '烈焰' },
+                { class: 'gradient-27', name: '寒冬' }, { class: 'gradient-28', name: '黑曜石' }
+            ];
+
+            gradients.forEach((grad, index) => {
+                const colorBox = document.createElement('div');
+                colorBox.classList.add('color-box', grad.class);
+                
+                const tooltip = document.createElement('span');
+                tooltip.classList.add('tooltip');
+                tooltip.textContent = grad.name;
+                colorBox.appendChild(tooltip);
+
+                if (index === 0) colorBox.classList.add('active');
+                
+                colorBox.addEventListener('click', () => {
+                    elements.canvas.className = '';
+                    elements.canvas.classList.add(grad.class);
+                    document.querySelectorAll('.color-box').forEach(box => box.classList.remove('active'));
+                    colorBox.classList.add('active');
+                });
+                elements.colorSelector.appendChild(colorBox);
+            });
+
+            function updateTimestamp() {
+                const now = new Date();
+                const time = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+                const date = now.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+                elements.timestampOutput.textContent = `${time} · ${date}`;
+            }
+            
+            function updateContent(text) {
+                 elements.contentOutput.textContent = text;
+                if(text) { updateTimestamp(); } else { elements.timestampOutput.textContent = ''; }
+            }
+
+            // --- 事件监听 ---
+            elements.nameInput.addEventListener('input', (e) => { elements.nameOutput.textContent = e.target.value; });
+            elements.textInput.addEventListener('input', (e) => { updateContent(e.target.value); });
+            
+            elements.avatarUpload.addEventListener('change', (e) => {
+                if (e.target.files && e.target.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        elements.avatarOutput.style.backgroundImage = `url('${event.target.result}')`;
+                        elements.avatarOutput.style.backgroundSize = 'cover';
+                        elements.avatarOutput.style.backgroundColor = 'transparent';
+                    }
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            });
+
+            elements.lightModeBtn.addEventListener('click', () => {
+                elements.card.classList.remove('dark-mode');
+                elements.lightModeBtn.classList.add('active');
+                elements.darkModeBtn.classList.remove('active');
+            });
+
+            elements.darkModeBtn.addEventListener('click', () => {
+                elements.card.classList.add('dark-mode');
+                elements.darkModeBtn.classList.add('active');
+                elements.lightModeBtn.classList.remove('active');
+            });
+            
+            elements.fontSizeSlider.addEventListener('input', (e) => { elements.contentOutput.style.fontSize = e.target.value + 'px'; });
+            elements.cardWidthSlider.addEventListener('input', (e) => { elements.card.style.maxWidth = e.target.value + 'px'; });
+            elements.backgroundWidthSlider.addEventListener('input', (e) => { elements.canvas.style.maxWidth = e.target.value + 'px'; });
+            elements.fontWeightSlider.addEventListener('input', (e) => { elements.contentOutput.style.fontWeight = e.target.value; });
+            elements.fontFamilySelector.addEventListener('change', (e) => { elements.card.style.fontFamily = e.target.value; });
+
+            elements.downloadBtn.addEventListener('click', () => {
+                elements.downloadBtn.textContent = "正在生成...";
+                elements.downloadBtn.disabled = true;
+
+                html2canvas(elements.canvas, { useCORS: true, scale: 2.5 })
+                .then(canvasElement => {
+                    const link = document.createElement('a');
+                    link.download = `card-image-${Date.now()}.png`;
+                    link.href = canvasElement.toDataURL('image/png');
+                    link.click();
+                })
+                .catch(err => {
+                    console.error("生成图片失败!", err);
+                    alert("抱歉，生成图片失败，请检查浏览器控制台获取错误信息。");
+                })
+                .finally(() => {
+                    elements.downloadBtn.textContent = "下载图片";
+                    elements.downloadBtn.disabled = false;
+                });
+            });
+
+            // --- 页面加载后立即执行 ---
+            function initialize() {
+                updateContent(elements.textInput.value);
+                elements.contentOutput.style.fontSize = elements.fontSizeSlider.value + 'px';
+                elements.card.style.maxWidth = elements.cardWidthSlider.value + 'px';
+                elements.canvas.style.maxWidth = elements.backgroundWidthSlider.value + 'px';
+                elements.contentOutput.style.fontWeight = elements.fontWeightSlider.value;
+                elements.card.style.fontFamily = elements.fontFamilySelector.value;
+            }
+            
+            initialize();
+        });
+    </script>
+</body>
+</html>
