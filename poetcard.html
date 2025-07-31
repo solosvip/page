@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>文字卡片生成器 (v5 - 华丽渐变版)</title>
+    <title>文字卡片生成器 (v6 - 毛玻璃最终版)</title>
+    <!-- 引入 html2canvas 库用于截图 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
+    <!-- 从 Google Fonts 引入多种字体和字重 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&family=Noto+Sans+SC:wght@100..900&family=Source+Serif+4:wght@200..900&display=swap" rel="stylesheet">
@@ -13,14 +15,13 @@
     <style>
         /* --- 全局样式 --- */
         :root {
-            --card-bg-light: #ffffff;
-            --card-bg-dark: #1a1a1a;
+            /* 默认背景色不再需要，因为会由JS动态设置 */
             --text-color-light: #1f2937;
             --text-color-dark: #e5e7eb;
             --sub-text-light: #6b7280;
             --sub-text-dark: #9ca3af;
             --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            --border-radius: 16px;
+            --border-radius: 20px; /* 圆角稍大一些以配合毛玻璃效果 */
             --font-family-base: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
@@ -121,7 +122,7 @@
         .card {
             width: 100%;
             max-width: 450px;
-            background-color: var(--card-bg-light);
+            /* 背景色由JS动态设置 */
             color: var(--text-color-light);
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
@@ -129,8 +130,13 @@
             box-sizing: border-box;
             transition: background-color 0.3s, color 0.3s, max-width 0.3s;
             font-family: var(--font-family-base);
+            
+            /* --- 新增：毛玻璃效果 --- */
+            -webkit-backdrop-filter: blur(16px); /* 兼容 Safari */
+            backdrop-filter: blur(16px); /* 标准语法 */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* 增加一个细微的边框，增强玻璃质感 */
         }
-        .card.dark-mode { background-color: var(--card-bg-dark); color: var(--text-color-dark); }
+        .card.dark-mode { color: var(--text-color-dark); }
         .card-header { display: flex; align-items: center; margin-bottom: 1.5rem; }
         
         .avatar {
@@ -148,8 +154,9 @@
 
         .name { font-weight: 700; font-size: 1.1rem; }
         .card-content { font-size: 1.25rem; line-height: 1.6; word-wrap: break-word; white-space: pre-wrap; font-weight: 400; }
-        .card-footer { margin-top: 1.5rem; font-size: 0.9rem; color: var(--sub-text-light); }
+        .card-footer { margin-top: 1.5rem; font-size: 0.9rem; transition: color 0.3s; }
         .card.dark-mode .card-footer { color: var(--sub-text-dark); }
+        .card:not(.dark-mode) .card-footer { color: var(--sub-text-light); }
 
         /* --- 渐变背景 --- */
         .gradient-1 { background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%); }
@@ -160,7 +167,6 @@
         .gradient-6 { background: linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%); }
         .gradient-7 { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); }
         .gradient-8 { background: linear-gradient(135deg, #485563 0%, #29323c 100%); }
-        /* --- 20款全新渐变色 --- */
         .gradient-9 { background: linear-gradient(to top, #30cfd0 0%, #330867 100%); }
         .gradient-10 { background: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%); }
         .gradient-11 { background: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%); }
@@ -195,6 +201,7 @@
 <body>
 
     <div class="container">
+        <!-- 控制面板 -->
         <div class="controls">
             <h2>文字卡片生成器</h2>
             
@@ -235,6 +242,16 @@
                     <button id="dark-mode-btn" class="mode-btn">深色</button>
                 </div>
             </div>
+            
+            <div class="control-group">
+                <label for="card-opacity-slider">卡片透明度</label>
+                <input type="range" id="card-opacity-slider" min="0.1" max="1" value="0.85" step="0.05">
+            </div>
+
+            <div class="control-group">
+                <label for="blur-intensity-slider">毛玻璃强度</label>
+                <input type="range" id="blur-intensity-slider" min="0" max="40" value="16" step="1">
+            </div>
 
             <div class="control-group">
                 <label for="background-width-slider">背景宽度</label>
@@ -259,6 +276,7 @@
             <button id="download-btn" class="download-btn">下载图片</button>
         </div>
 
+        <!-- 预览区域 -->
         <div class="preview">
             <div id="canvas" class="gradient-1">
                 <div id="card" class="card">
@@ -286,6 +304,8 @@
                 colorSelector: document.getElementById('color-selector'),
                 lightModeBtn: document.getElementById('light-mode-btn'),
                 darkModeBtn: document.getElementById('dark-mode-btn'),
+                cardOpacitySlider: document.getElementById('card-opacity-slider'),
+                blurIntensitySlider: document.getElementById('blur-intensity-slider'),
                 backgroundWidthSlider: document.getElementById('background-width-slider'),
                 cardWidthSlider: document.getElementById('card-width-slider'),
                 fontSizeSlider: document.getElementById('font-size-slider'),
@@ -348,6 +368,15 @@
                  elements.contentOutput.textContent = text;
                 if(text) { updateTimestamp(); } else { elements.timestampOutput.textContent = ''; }
             }
+            
+            function updateCardBackground() {
+                const opacity = elements.cardOpacitySlider.value;
+                if (elements.card.classList.contains('dark-mode')) {
+                    elements.card.style.backgroundColor = `rgba(26, 26, 26, ${opacity})`;
+                } else {
+                    elements.card.style.backgroundColor = `rgba(255, 255, 255, ${opacity})`;
+                }
+            }
 
             // --- 事件监听 ---
             elements.nameInput.addEventListener('input', (e) => { elements.nameOutput.textContent = e.target.value; });
@@ -369,14 +398,24 @@
                 elements.card.classList.remove('dark-mode');
                 elements.lightModeBtn.classList.add('active');
                 elements.darkModeBtn.classList.remove('active');
+                updateCardBackground();
             });
 
             elements.darkModeBtn.addEventListener('click', () => {
                 elements.card.classList.add('dark-mode');
                 elements.darkModeBtn.classList.add('active');
                 elements.lightModeBtn.classList.remove('active');
+                updateCardBackground();
             });
             
+            elements.cardOpacitySlider.addEventListener('input', updateCardBackground);
+            
+            elements.blurIntensitySlider.addEventListener('input', (e) => {
+                const blurValue = `${e.target.value}px`;
+                elements.card.style.backdropFilter = `blur(${blurValue})`;
+                elements.card.style.webkitBackdropFilter = `blur(${blurValue})`;
+            });
+
             elements.fontSizeSlider.addEventListener('input', (e) => { elements.contentOutput.style.fontSize = e.target.value + 'px'; });
             elements.cardWidthSlider.addEventListener('input', (e) => { elements.card.style.maxWidth = e.target.value + 'px'; });
             elements.backgroundWidthSlider.addEventListener('input', (e) => { elements.canvas.style.maxWidth = e.target.value + 'px'; });
@@ -387,7 +426,7 @@
                 elements.downloadBtn.textContent = "正在生成...";
                 elements.downloadBtn.disabled = true;
 
-                html2canvas(elements.canvas, { useCORS: true, scale: 2.5 })
+                html2canvas(elements.canvas, { useCORS: true, scale: 2.5, backgroundColor: null })
                 .then(canvasElement => {
                     const link = document.createElement('a');
                     link.download = `card-image-${Date.now()}.png`;
@@ -407,6 +446,10 @@
             // --- 页面加载后立即执行 ---
             function initialize() {
                 updateContent(elements.textInput.value);
+                updateCardBackground();
+                const initialBlur = `${elements.blurIntensitySlider.value}px`;
+                elements.card.style.backdropFilter = `blur(${initialBlur})`;
+                elements.card.style.webkitBackdropFilter = `blur(${initialBlur})`;
                 elements.contentOutput.style.fontSize = elements.fontSizeSlider.value + 'px';
                 elements.card.style.maxWidth = elements.cardWidthSlider.value + 'px';
                 elements.canvas.style.maxWidth = elements.backgroundWidthSlider.value + 'px';
