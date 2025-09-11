@@ -1,0 +1,4491 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>艺术家风格（图像艺术）索引 · 单文件</title>
+  <style>
+    :root {
+      --bg: #f7f7f7;
+      --card: #ffffff;
+      --text: #333333;
+      --muted: #999999;
+      --border: #eeeeee;
+      --badge: #f5f5f5;
+      --warn-bg: #fff3cd;
+      --warn-fg: #856404;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font: 14px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Noto Sans SC, Arial, sans-serif;
+    }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(255, 255, 255, .6);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+    }
+    header h1 { margin: 0 0 8px; font-size: 18px; }
+    .controls { display: grid; grid-template-columns: 1fr 260px auto; gap: 8px; align-items: center; }
+    input[type="search"], select {
+      width: 100%; background: var(--card); color: var(--text);
+      border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px;
+    }
+    label.checkbox { display: inline-flex; gap: 6px; align-items: center; color: var(--muted); }
+    .count { color: var(--muted); font-size: 12px; }
+    main { padding: 16px; }
+    .grid {
+      display: grid; gap: 12px;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+    .card {
+      display: flex; flex-direction: column; gap: 10px;
+      padding: 12px; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; min-height: 100%;
+    }
+    .thumb {
+      position: relative; width: 100%; overflow: hidden; border-radius: 8px;
+      background: #f5f5f5;
+      display: grid; place-items: center; color: var(--muted);
+      font-size: 12px; text-align: center; padding: 8px;
+    }
+    .thumb img { width: 100%; height: auto; display: block; }
+    .names { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .en { font-weight: 700; }
+    .zh { color: var(--muted); font-size: 13px; }
+    .meta { display: flex; flex-wrap: wrap; gap: 6px; }
+    .badge { background: var(--badge); color: var(--text); border-radius: 999px; padding: 2px 8px; font-size: 12px; }
+    .badge.sensitive { background: var(--warn-bg); color: var(--warn-fg); }
+    .style { color: var(--text); }
+    .note { color: var(--muted); font-size: 12px; }
+    .copy-btn {
+      background: var(--badge);
+      color: var(--text);
+      border: none;
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 12px;
+      line-height: 1.5;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .copy-btn:active {
+      background: var(--border);
+    }
+    @media (max-width: 740px) { .controls { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>即梦4.0可以识别的艺术家风格</h1>
+    <div class="controls">
+      <input id="q" type="search" placeholder="搜索：英文名/中文名/风格/分类" />
+      <select id="category"><option value="">全部分类</option></select>
+      <label class="checkbox"><input id="hideSensitive" type="checkbox" /> 隐藏敏感内容（裸露/黑暗）</label>
+      <span id="count" class="count"></span>
+    </div>
+  </header>
+
+  <main>
+    <section id="grid" class="grid"></section>
+  </main>
+
+  <footer>
+    <h4 style="padding-left: 20px;">吴安玩的宝藏·制作--欢迎关注--推特--公众号--小红书--微博--抖音</h4>
+  </footer>
+
+  <!-- 内嵌 JSON 数据：你只需要在 img 字段填入图片 URL 即可 -->
+  <script id="artist-data" type="application/json">
+{
+  "artists": [
+    {
+      "en_name": "Yayoi Kusama",
+      "zh_name": "草间弥生",
+      "category": "波普艺术与后波普",
+      "style": "波点与重复（以平面/版画/绘画作品纳入）",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/76db0546cc70f393419d45134ad68734.jpg"
+    },
+    {
+      "en_name": "Gustav Klimt",
+      "zh_name": "古斯塔夫·克林姆特",
+      "category": "现代主义与早期抽象",
+      "style": "装饰性象征、金箔与图案语言",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/5fcad3e6439b6f328f2272acaed06f6b.jpg"
+    },
+    {
+      "en_name": "Egon Schiele",
+      "zh_name": "埃贡·席勒",
+      "category": "现代主义与早期抽象",
+      "style": "表现主义的人体与心理张力",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/a26fb2ab376f5665dec6d6e407c2c800.jpg"
+    },
+    {
+      "en_name": "Piet Mondrian",
+      "zh_name": "皮特·蒙德里安",
+      "category": "现代主义与早期抽象",
+      "style": "新造型主义，几何抽象与原色格构",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/38135ec7d69f3a04eedc9722f3e1945d.jpg"
+    },
+    {
+      "en_name": "Wassily Kandinsky",
+      "zh_name": "瓦西里·康定斯基",
+      "category": "现代主义与早期抽象",
+      "style": "抽象绘画先驱，形式与精神性",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/7b0a51f1c35a46cdeca3009006b47c9a.jpg"
+    },
+    {
+      "en_name": "Paul Klee",
+      "zh_name": "保罗·克利",
+      "category": "现代主义与早期抽象",
+      "style": "抽象与象形之间的诗性符号",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/69049a4e7d2f5d3ac8627d12d81cbede.jpg"
+    },
+    {
+      "en_name": "Kazimir Malevich",
+      "zh_name": "卡济米尔·马列维奇",
+      "category": "现代主义与早期抽象",
+      "style": "至上主义，纯粹几何",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/e92387e08f91540284b1ebeb25038ba7.jpg"
+    },
+    {
+      "en_name": "Joan Miró",
+      "zh_name": "胡安·米罗",
+      "category": "现代主义与早期抽象",
+      "style": "童稚化符号与超现实倾向的抽象",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/2e76a3166f024071ef142bec6eba124d.jpg"
+    },
+    {
+      "en_name": "Georgia O'Keeffe",
+      "zh_name": "乔治亚·欧姬芙",
+      "category": "现代主义与早期抽象",
+      "style": "花卉与自然形态的抽象化",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/23811e756eb2f4ca70cc19aa5b3d7111.jpg"
+    },
+    {
+      "en_name": "Edward Hopper",
+      "zh_name": "爱德华·霍普",
+      "category": "现代主义与早期抽象",
+      "style": "美国现代生活的孤独写实",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/a10343df539b0ccc1d8ffbf7d956dc76.jpg"
+    },
+    {
+      "en_name": "Josef Albers",
+      "zh_name": "约瑟夫·阿尔伯斯",
+      "category": "现代主义与早期抽象",
+      "style": "色彩与几何关系的系统研究",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/0f289b58a222efd89c35c6285dba2001.jpg"
+    },
+    {
+      "en_name": "Mark Rothko",
+      "zh_name": "马克·罗斯科",
+      "category": "现代主义与早期抽象",
+      "style": "情感色域的冥想空间",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/c2866aa06275c756790f3936a18fa54b.jpg"
+    },
+    {
+      "en_name": "Ad Reinhardt",
+      "zh_name": "阿德·莱因哈特",
+      "category": "现代主义与早期抽象",
+      "style": "极限克制与“黑画”纯粹性",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/eb65c48dc1ae0828c59d6e97ad10bda4.jpg"
+    },
+    {
+      "en_name": "Henri Matisse",
+      "zh_name": "亨利·马蒂斯",
+      "category": "现代主义与早期抽象",
+      "style": "野兽派色块与剪纸式平面构成",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/36377026bea9dff42127925abc7025bf.jpg"
+    },
+    {
+      "en_name": "Hilma af Klint",
+      "zh_name": "希尔玛·阿夫·克林特",
+      "category": "现代主义与早期抽象",
+      "style": "先驱性的精神主义抽象图式",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/08b3807ecec3df10100d0bde1102f4c3.jpg"
+    },
+    {
+      "en_name": "Sonia Delaunay",
+      "zh_name": "索尼娅·德劳内",
+      "category": "现代主义与早期抽象",
+      "style": "同时性色彩的节奏几何",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/18f103fc54e3d86f0c9b4aa657316dd6.jpg"
+    },
+    {
+      "en_name": "Edvard Munch",
+      "zh_name": "爱德华·蒙克",
+      "category": "现代主义与早期抽象",
+      "style": "表现主义情绪化色带与波动线",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/91364e261b7b7e69ac5e5b81ad5b1a26.jpg"
+    },
+    {
+      "en_name": "Georges Braque",
+      "zh_name": "乔治·布拉克",
+      "category": "现代主义与早期抽象",
+      "style": "立体主义的平面分割与纹理拼合",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/3c46363c858cc23978a88e4700ade30f.jpg"
+    },
+    {
+      "en_name": "René Magritte",
+      "zh_name": "勒内·马格利特",
+      "category": "超现实主义与魔幻现实",
+      "style": "日常之物的哲学悖论",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/01f671a7085f56e4f2bf89f6a59191e2.jpg"
+    },
+    {
+      "en_name": "Salvador Dalí",
+      "zh_name": "萨尔瓦多·达利",
+      "category": "超现实主义与魔幻现实",
+      "style": "潜意识视觉剧场与偏执批判法",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/a7855a6594d5d022f9d9230a59d7fae1.jpg"
+    },
+    {
+      "en_name": "Max Ernst",
+      "zh_name": "马克斯·恩斯特",
+      "category": "超现实主义与魔幻现实",
+      "style": "拼贴、拓印与心理风景",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/40defb9fe3a9a225e1e4245f36c39b61.jpg"
+    },
+    {
+      "en_name": "Leonora Carrington",
+      "zh_name": "利奥诺拉·卡林顿",
+      "category": "超现实主义与魔幻现实",
+      "style": "神秘主义与女性叙事",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/5cd8261a04530e7c123e61df0a8ca57e.jpg"
+    },
+    {
+      "en_name": "Remedios Varo",
+      "zh_name": "雷梅迪奥斯·巴罗",
+      "category": "超现实主义与魔幻现实",
+      "style": "炼金术与超现实寓言",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/c78e8a288686803811fdc50be84e3870.jpg"
+    },
+    {
+      "en_name": "Frida Kahlo",
+      "zh_name": "弗里达·卡罗",
+      "category": "超现实主义与魔幻现实",
+      "style": "墨西哥魔幻现实的自我书写",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/6c892d67ae54400efbe979450ac5eb02.jpg"
+    },
+    {
+      "en_name": "Zdzisław Beksiński",
+      "zh_name": "兹齐斯瓦夫·贝克辛斯基",
+      "category": "超现实主义与魔幻现实",
+      "style": "黑暗末日与超现实象征",
+      "sensitive": true,
+      "note": "内容敏感：黑暗/恐怖",
+      "img": "https://img.myhotgirl.top/e0b8ce613b0de90c0b5541b591b082f5.jpg"
+    },
+    {
+      "en_name": "Wifredo Lam",
+      "zh_name": "威弗雷多·拉姆",
+      "category": "超现实主义与魔幻现实",
+      "style": "非西方神话与超现实融合",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/55632298ba5329d107a5ff39f950aabe.jpg"
+    },
+    {
+      "en_name": "Giorgio de Chirico",
+      "zh_name": "基里科",
+      "category": "超现实主义与魔幻现实",
+      "style": "形而上学城景的长阴影与静寂戏剧",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/0ac22849748d1495ed3d0e6a9038958f.jpg"
+    },
+    {
+      "en_name": "Yves Tanguy",
+      "zh_name": "伊夫·唐吉",
+      "category": "超现实主义与魔幻现实",
+      "style": "冷静生物形态的荒原梦境",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/bdc4356e7d1db75bcfa14e39250a7544.jpg"
+    },
+    {
+      "en_name": "Dorothea Tanning",
+      "zh_name": "多萝西娅·坦宁",
+      "category": "超现实主义与魔幻现实",
+      "style": "女性超现实的梦游叙事",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/b9ddf0b98138363b6e2110cbd979db0e.jpg"
+    },
+    {
+      "en_name": "Toyen",
+      "zh_name": "托扬",
+      "category": "超现实主义与魔幻现实",
+      "style": "中欧超现实的冷寂隐喻",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/1317e6f779c29318210bf79d50077ae8.jpg"
+    },
+    {
+      "en_name": "Kay Sage",
+      "zh_name": "凯·塞奇",
+      "category": "超现实主义与魔幻现实",
+      "style": "几何帷幕与孤寂空间",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/325f88c3a2c9f2d5e79030f8a097bd24.jpg"
+    },
+    {
+      "en_name": "Jackson Pollock",
+      "zh_name": "杰克逊·波洛克",
+      "category": "抽象表现主义｜色域｜极简｜硬边｜欧普",
+      "style": "滴流行动绘画",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/d3dad75b0dc0661a775b5cb143f0912d.jpg"
+    },
+    {
+      "en_name": "Willem de Kooning",
+      "zh_name": "威廉·德·库宁",
+      "category": "抽象表现主义｜色域｜极简｜硬边｜欧普",
+      "style": "狂放笔触与人物-抽象之间",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/d497b8ab5e3a281b3eefe1f8a79f4681.jpg"
+    },
+    {
+      "en_name": "Franz Kline",
+      "zh_name": "弗兰茨·克莱因",
+      "category": "抽象表现主义｜色域｜极简｜硬边｜欧普",
+      "style": "黑白结构的力度",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/1ace25ae484da89e3d6527858c698819.jpg"
+    },
+    {
+      "en_name": "Lee Krasner",
+      "zh_name": "李·克拉斯纳",
+      "category": "抽象表现主义｜色域｜极简｜硬边｜欧普",
+      "style": "女性抽象的多样实验",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/d79f656a086d896c589a2eb4197eb8d0.jpg"
+    },
+    {
+      "en_name": "Joan Mitchell",
+      "zh_name": "琼·米切尔",
+      "category": "抽象表现主义｜色域｜极简｜硬边｜欧普",
+      "style": "情感充沛的大尺幅抽象",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/d264f0c5685f87c7605b8997f74afe5b.jpg"
+    },
+    {
+      "en_name": "Helen Frankenthaler",
+      "zh_name": "海伦·弗兰肯塔勒",
+      "category": "抽象表现主义｜色域｜极简｜硬边｜欧普",
+      "style": "浸染法与流动色域",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/378a48d3d9579a2ac939725141d48513.jpg"
+    },
+    {
+      "en_name": "Barnett Newman",
+      "zh_name": "巴内特·纽曼",
+      "category": "抽象表现主义｜色域｜极简｜硬边｜欧普",
+      "style": "色面与“拉链”结构",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/e1903e039228b8a09e1cb2cb2cc76106.jpg"
+    },
+    {
+      "en_name": "Clyfford Still",
+      "zh_name": "克利福德·斯蒂尔",
+      "category": "抽象表现主义｜色域｜极简｜硬边｜欧普",
+      "style": "裂隙般色块与原初能量",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/835772f3a9b1c1e4b4d501589dbabc01.jpg"
+    },
+    {
+      "en_name": "Agnes Martin",
+      "zh_name": "艾格尼丝·马丁",
+      "category": "抽象表现主义｜色域｜极简｜硬边｜欧普",
+      "style": "极简网格与静谧",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/941a3c4ae7f83ea6f7dcc5bb295b26b0.jpg"
+    },
+    {
+      "en_name": "Ellsworth Kelly",
+      "zh_name": "埃尔斯沃斯·凯利",
+      "category": "抽象表现主义｜色域｜极简｜硬边｜欧普",
+      "style": "硬边抽象与形状色块",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/7e24459e841736aa163da00874581264.jpg"
+    },
+    {
+      "en_name": "Frank Stella",
+      "zh_name": "弗兰克·斯特拉",
+      "category": "抽象表现主义｜色域｜极简｜硬边｜欧普",
+      "style": "“你看到的就是你看到的一切”与形状画布",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/b8e7527c0ab78e4d659741e35d2c7966.jpg"
+    },
+    {
+      "en_name": "Bridget Riley",
+      "zh_name": "布里奇特·莱利",
+      "category": "抽象表现主义｜色域｜极简｜硬边｜欧普",
+      "style": "欧普艺术的视觉震荡",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/3aa0f5c29c8bf37f3b014da3328a5608.jpg"
+    },
+    {
+      "en_name": "Victor Vasarely",
+      "zh_name": "维克多·瓦萨雷里",
+      "category": "抽象表现主义｜色域｜极简｜硬边｜欧普",
+      "style": "欧普系统与视觉科学",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/47b5a32434b49c7816a7435e1949df4b.jpg"
+    },
+    {
+      "en_name": "Philip Guston",
+      "zh_name": "菲利普·古斯顿",
+      "category": "抽象表现主义｜色域｜极简｜硬边｜欧普",
+      "style": "抽象到具象的转向（承前启后）",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/dc79b8cb560a1db345e13ec527b8f936.jpg"
+    },
+    {
+      "en_name": "Cy Twombly",
+      "zh_name": "赛·托姆布雷",
+      "category": "抽象表现主义｜色域｜极简｜硬边｜欧普",
+      "style": "书写性的抽象与涂写",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/b408c8dbd5053dc4654178ab27bc60e5.jpg"
+    },
+    {
+      "en_name": "Arshile Gorky",
+      "zh_name": "阿希尔·高尔基",
+      "category": "抽象表现主义｜色域｜极简｜硬边｜欧普",
+      "style": "超现实到抽象的桥梁式形态",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/4ce27a5c3185106fce46ec8a42c92476.jpg"
+    },
+    {
+      "en_name": "Adolph Gottlieb",
+      "zh_name": "阿道夫·戈特利布",
+      "category": "抽象表现主义｜色域｜极简｜硬边｜欧普",
+      "style": "象形符号与“爆炸/目标”图式",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/29aea43f79ae141a02bb47a9357c74dd.jpg"
+    },
+    {
+      "en_name": "Robert Motherwell",
+      "zh_name": "罗伯特·马瑟韦尔",
+      "category": "抽象表现主义｜色域｜极简｜硬边｜欧普",
+      "style": "简化的黑形与抒情对比",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/951faeab0b10a039fcd034c5a3f5e26b.jpg"
+    },
+    {
+      "en_name": "Sam Francis",
+      "zh_name": "萨姆·弗朗西斯",
+      "category": "抽象表现主义｜色域｜极简｜硬边｜欧普",
+      "style": "悬浮色斑与留白构成",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/19311bab08dac2f97c6ba144af80168c.jpg"
+    },
+    {
+      "en_name": "Morris Louis",
+      "zh_name": "莫里斯·路易斯",
+      "category": "抽象表现主义｜色域｜极简｜硬边｜欧普",
+      "style": "倾注与纱幕式色流",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/42e507315b564b5ae67dae64d863dfd8.jpg"
+    },
+    {
+      "en_name": "Kenneth Noland",
+      "zh_name": "肯尼斯·诺兰德",
+      "category": "抽象表现主义｜色域｜极简｜硬边｜欧普",
+      "style": "靶心/箭形硬边色面",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/7f51ae85c6daec19852b190e471515f0.jpg"
+    },
+    {
+      "en_name": "Richard Anuszkiewicz",
+      "zh_name": "理查德·阿努什凯维奇",
+      "category": "抽象表现主义｜色域｜极简｜硬边｜欧普",
+      "style": "欧普艺术的光学振动",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/822ba4c83d2795e3e05e6c57aa3f0aaa.jpg"
+    },
+    {
+      "en_name": "Andy Warhol",
+      "zh_name": "安迪·沃霍尔",
+      "category": "波普艺术与后波普",
+      "style": "机械复制时代的偶像图像",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/951802b877cc64ece406768d159bb8b6.jpg"
+    },
+    {
+      "en_name": "Roy Lichtenstein",
+      "zh_name": "罗伊·利希滕斯坦",
+      "category": "波普艺术与后波普",
+      "style": "漫画语言与本·戴点",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/ec1686b4f24bb7c9b33dfc57bdb705e9.jpg"
+    },
+    {
+      "en_name": "David Hockney",
+      "zh_name": "大卫·霍克尼",
+      "category": "波普艺术与后波普",
+      "style": "明亮几何的加州风景",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/10f480daa6a46abc8852f91978896af1.jpg"
+    },
+    {
+      "en_name": "James Rosenquist",
+      "zh_name": "詹姆斯·罗森奎斯特",
+      "category": "波普艺术与后波普",
+      "style": "广告图像拼贴的纪念碑化",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/9454732c91ab237c57063dfa746499f8.jpg"
+    },
+    {
+      "en_name": "Tom Wesselmann",
+      "zh_name": "汤姆·韦塞尔曼",
+      "category": "波普艺术与后波普",
+      "style": "女性裸体与日常静物的并置",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/5c927cbf47cdd94b420fb3d3f760b2cd.jpg"
+    },
+    {
+      "en_name": "Richard Hamilton",
+      "zh_name": "理查德·汉密尔顿",
+      "category": "波普艺术与后波普",
+      "style": "英国波普开端",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/83b9f014eea6b49b3c900afc0168ed6c.jpg"
+    },
+    {
+      "en_name": "Peter Blake",
+      "zh_name": "彼得·布莱克",
+      "category": "波普艺术与后波普",
+      "style": "英国波普与音乐文化",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/ad492c6ea6a733f5800f80b4f6e29653.jpg"
+    },
+    {
+      "en_name": "Alex Katz",
+      "zh_name": "亚历克斯·卡茨",
+      "category": "波普艺术与后波普",
+      "style": "扁平肖像的冷感优雅",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/4b67d2fb0b3b8a5dd4a594ebf1e5bbe0.jpg"
+    },
+    {
+      "en_name": "Wayne Thiebaud",
+      "zh_name": "韦恩·第伯",
+      "category": "波普艺术与后波普",
+      "style": "糖霜般的甜点静物",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/b0b1359b928d356bacb5802ef6ff04a9.jpg"
+    },
+    {
+      "en_name": "Takashi Murakami",
+      "zh_name": "村上隆",
+      "category": "波普艺术与后波普",
+      "style": "“超扁平”与流行文化跨界",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/9d2e58c9c67a73b6e8981a8c295ee69f.jpg"
+    },
+    {
+      "en_name": "Yoshitomo Nara",
+      "zh_name": "奈良美智",
+      "category": "波普艺术与后波普",
+      "style": "少女与孤独的扁平图像",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/9cd800dd104998b9637b9c89d26e6243.jpg"
+    },
+    {
+      "en_name": "Robert Indiana",
+      "zh_name": "罗伯特·印第安纳",
+      "category": "波普艺术与后波普",
+      "style": "LOVE 字形的符号图像学",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/849dde279d3bf0d5378dccf895a27aa5.jpg"
+    },
+    {
+      "en_name": "Eduardo Paolozzi",
+      "zh_name": "爱德华多·保洛齐",
+      "category": "波普艺术与后波普",
+      "style": "英国波普的科技拼贴",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/5a2f2b9f90e12729fa22317af5cc9eb9.jpg"
+    },
+    {
+      "en_name": "Pauline Boty",
+      "zh_name": "波琳·博蒂",
+      "category": "波普艺术与后波普",
+      "style": "女性视角的英国波普彩面",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/c3b98222232afaf2fb2db84456f31d1e.jpg"
+    },
+    {
+      "en_name": "Tadanori Yokoo",
+      "zh_name": "横尾忠则",
+      "category": "波普艺术与后波普",
+      "style": "高饱和的日本海报/拼贴图像",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/35b472c225aaa63320a44a130afe2308.jpg"
+    },
+    {
+      "en_name": "Mel Ramos",
+      "zh_name": "梅尔·拉莫斯",
+      "category": "波普艺术与后波普",
+      "style": "商业图像与 pin-up 并置",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/8a45e3e20c2a077d2feddf9033b19bcb.jpg"
+    },
+    {
+      "en_name": "David Shrigley",
+      "zh_name": "大卫·施里格里",
+      "category": "波普艺术与后波普",
+      "style": "天真化线条+文字的荒诞幽默",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Mr Doodle",
+      "zh_name": "涂鸦先生",
+      "category": "波普艺术与后波普",
+      "style": "全覆盖的重复涂鸦图像语言",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Erik Parker",
+      "zh_name": "埃里克·帕克",
+      "category": "波普艺术与后波普",
+      "style": "迷幻拼合的人物/植物图式与强轮廓",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Hikari Shimoda",
+      "zh_name": "下田光",
+      "category": "波普艺术与后波普",
+      "style": "霓虹眼睛的儿童形象，流行文化的忧郁",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Emily Mae Smith",
+      "zh_name": "艾米丽·梅·史密斯",
+      "category": "波普艺术与后波普",
+      "style": "扫帚拟人隐喻的女性寓言图像学",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Hebru Brantley",
+      "zh_name": "赫布鲁·布兰特利",
+      "category": "波普艺术与后波普",
+      "style": "“飞行男孩”与都市神话的美式漫画语汇",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Matt Gondek",
+      "zh_name": "马特·贡德克",
+      "category": "波普艺术与后波普",
+      "style": "解体卡通与爆裂色块",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Andy Rementer",
+      "zh_name": "安迪·雷门特",
+      "category": "波普艺术与后波普",
+      "style": "扁平人物与复古广告构图",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Ivy Haldeman",
+      "zh_name": "艾薇·霍尔德曼",
+      "category": "波普艺术与后波普",
+      "style": "霓虹热狗拟人化的时尚姿态",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Joan Cornellà",
+      "zh_name": "胡安·科内利亚",
+      "category": "波普艺术与后波普",
+      "style": "极简平面中的黑色幽默与社会讽喻",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Chiho Aoshima",
+      "zh_name": "青岛千穗",
+      "category": "波普艺术与后波普",
+      "style": "超扁平的灵异自然与少女幽境",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Hush",
+      "zh_name": "Hush",
+      "category": "波普艺术与后波普",
+      "style": "和风女性×街头拼贴的霓虹纸感",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "James Jarvis",
+      "zh_name": "詹姆斯·贾维斯",
+      "category": "波普艺术与后波普",
+      "style": "极简黑线卡通角色的图像哲学",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Yoko Honda",
+      "zh_name": "本田洋子",
+      "category": "波普艺术与后波普",
+      "style": "80年代复古合成波图像，泳池/棕榈构图",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Roby Dwi Antono",
+      "zh_name": "罗比·德维·安东诺",
+      "category": "波普艺术与后波普",
+      "style": "超现实童像与复古玩偶的忧郁拼贴",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Hajime Sorayama",
+      "zh_name": "空山基",
+      "category": "波普艺术与后波普",
+      "style": "空气喷笔金属人形与机能美学",
+      "sensitive": true,
+      "note": "内容敏感：可能含裸露/成人主题",
+      "img": "https://img.myhotgirl.top/92a67802bbe762fd402c6ab9108bfa22.jpg"
+    },
+    {
+      "en_name": "Paul Insect",
+      "zh_name": "保罗·因塞克特",
+      "category": "波普艺术与后波普",
+      "style": "拼贴肖像与复古印刷质感",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Kota Yamaji",
+      "zh_name": "山路航太",
+      "category": "波普艺术与后波普",
+      "style": "霓虹超现实的日常静物拼贴",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "James Ulmer",
+      "zh_name": "詹姆斯·乌尔默",
+      "category": "波普艺术与后波普",
+      "style": "极简卡通人物与纯色块",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Yoon Hyup",
+      "zh_name": "尹协",
+      "category": "波普艺术与后波普",
+      "style": "彩色线段与点组成的节奏图像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Georg Baselitz",
+      "zh_name": "乔治·巴塞利茨",
+      "category": "新表现主义与后绘画",
+      "style": "倒置人物与粗粝能量",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Anselm Kiefer",
+      "zh_name": "安塞尔姆·基弗",
+      "category": "新表现主义与后绘画",
+      "style": "历史与物质的厚重肌理",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Sigmar Polke",
+      "zh_name": "西格玛·波尔克",
+      "category": "新表现主义与后绘画",
+      "style": "化学实验与图像系统",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Gerhard Richter",
+      "zh_name": "格哈德·里希特",
+      "category": "新表现主义与后绘画",
+      "style": "模糊写实与抽象光谱",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Albert Oehlen",
+      "zh_name": "阿尔伯特·厄伦",
+      "category": "新表现主义与后绘画",
+      "style": "反绘画与自我指涉",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Jörg Immendorff",
+      "zh_name": "约尔格·伊门多夫",
+      "category": "新表现主义与后绘画",
+      "style": "政治寓言与戏剧化构图",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Markus Lüpertz",
+      "zh_name": "马库斯·吕佩茨",
+      "category": "新表现主义与后绘画",
+      "style": "夸张形态与古典母题再造",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "A.R. Penck",
+      "zh_name": "A.R. 彭克",
+      "category": "新表现主义与后绘画",
+      "style": "原始符号与火柴人体系",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Julian Schnabel",
+      "zh_name": "朱利安·施纳贝尔",
+      "category": "新表现主义与后绘画",
+      "style": "破碎材料与宏大姿态",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Eric Fischl",
+      "zh_name": "埃里克·费施尔",
+      "category": "新表现主义与后绘画",
+      "style": "当代社会的心理叙事",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Francesco Clemente",
+      "zh_name": "弗朗切斯科·克莱门特",
+      "category": "新表现主义与后绘画",
+      "style": "跨文化象征",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Sandro Chia",
+      "zh_name": "桑德罗·基亚",
+      "category": "新表现主义与后绘画",
+      "style": "古典英雄与色彩激情",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Enzo Cucchi",
+      "zh_name": "恩佐·库基",
+      "category": "新表现主义与后绘画",
+      "style": "神秘符号与原始力量",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Mimmo Paladino",
+      "zh_name": "米莫·帕拉迪诺",
+      "category": "新表现主义与后绘画",
+      "style": "原初符号学",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Neo Rauch",
+      "zh_name": "尼奥·劳赫",
+      "category": "新表现主义与后绘画",
+      "style": "新莱比锡的叙事悖论",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Daniel Richter",
+      "zh_name": "丹尼尔·里希特",
+      "category": "新表现主义与后绘画",
+      "style": "政治与幻象的色彩场",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Cecily Brown",
+      "zh_name": "塞西莉·布朗",
+      "category": "新表现主义与后绘画",
+      "style": "肉感笔触与身体图像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "David Salle",
+      "zh_name": "大卫·萨利",
+      "category": "新表现主义与后绘画",
+      "style": "冷调拼贴式图像互文",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Dana Schutz",
+      "zh_name": "达娜·舒茨",
+      "category": "新表现主义与后绘画",
+      "style": "强饱和色与夸张失真的人物叙事",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Martin Kippenberger",
+      "zh_name": "马丁·基彭贝格",
+      "category": "新表现主义与后绘画",
+      "style": "自反性与讽刺化的“坏画”",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Rose Wylie",
+      "zh_name": "罗丝·怀利",
+      "category": "新表现主义与后绘画",
+      "style": "天真化大幅平面与文字片语",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Jadé Fadojutimi",
+      "zh_name": "贾德·法多朱蒂米",
+      "category": "新表现主义与后绘画",
+      "style": "丝带般笔触与强烈色域，动态抽象",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Loie Hollowell",
+      "zh_name": "洛伊·霍洛韦尔",
+      "category": "新表现主义与后绘画",
+      "style": "生物形态几何与渐变，具身/性主题的抽象",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Lucy Bull",
+      "zh_name": "露西·布尔",
+      "category": "新表现主义与后绘画",
+      "style": "全铺式流动抽象，迷幻色彩场",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Avery Singer",
+      "zh_name": "艾弗里·辛格",
+      "category": "新表现主义与后绘画",
+      "style": "数字喷绘感的“伪3D”构成绘画",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Hilary Pecis",
+      "zh_name": "希拉里·佩西斯",
+      "category": "新表现主义与后绘画",
+      "style": "扁平明亮的室内静物，书堆与图案化",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Jonas Wood",
+      "zh_name": "乔纳斯·伍德",
+      "category": "新表现主义与后绘画",
+      "style": "平面化植物/室内图案，撞色构图",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Katherine Bernhardt",
+      "zh_name": "凯瑟琳·伯恩哈特",
+      "category": "新表现主义与后绘画",
+      "style": "香蕉/香烟等流行母题的野性涂抹",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Eddie Martinez",
+      "zh_name": "埃迪·马丁内斯",
+      "category": "新表现主义与后绘画",
+      "style": "粗犷卡通形体与直觉笔触",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Vaughn Spann",
+      "zh_name": "沃恩·斯潘",
+      "category": "新表现主义与后绘画",
+      "style": "X/太阳符号与厚涂肌理的符号抽象",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Austin Lee",
+      "zh_name": "奥斯汀·李",
+      "category": "新表现主义与后绘画",
+      "style": "霓虹气刷与数码拟态的“卡通抽象”",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Tesfaye Urgessa",
+      "zh_name": "特斯法耶·乌格萨",
+      "category": "新表现主义与后绘画",
+      "style": "非洲表达与西方传统的紧张叙事",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Ambera Wellmann",
+      "zh_name": "安贝拉·维尔曼",
+      "category": "新表现主义与后绘画",
+      "style": "肉身-物质混融的光滑“滑面”绘画",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Cristina BanBan",
+      "zh_name": "克里斯蒂娜·班班",
+      "category": "新表现主义与后绘画",
+      "style": "夸张曲线体块与强饱和色域",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Zéh Palito",
+      "zh_name": "泽·帕利托",
+      "category": "新表现主义与后绘画",
+      "style": "热带色彩与图案化人物的乐观平面",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Firelei Báez",
+      "zh_name": "菲莱莉·巴埃斯",
+      "category": "新表现主义与后绘画",
+      "style": "热带植物/装饰纹理覆盖的人像与地图再置换",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Tomokazu Matsuyama",
+      "zh_name": "松山智一",
+      "category": "新表现主义与后绘画",
+      "style": "东方纹样×美式流行的高密度拼贴",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Christine Ay Tjoe",
+      "zh_name": "克里斯汀·艾·佐伊",
+      "category": "新表现主义与后绘画",
+      "style": "丝状笔触与擦拭层的精神性抽象",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Louise Giovanelli",
+      "zh_name": "路易丝·焦瓦内利",
+      "category": "新表现主义与后绘画",
+      "style": "光泽边缘与荧金层",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Allison Zuckerman",
+      "zh_name": "艾莉森·祖克曼",
+      "category": "新表现主义与后绘画",
+      "style": "拼贴与名画挪用的艳俗混剪",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Michaela Yearwood-Dan",
+      "zh_name": "米凯拉·耶伍德-丹",
+      "category": "新表现主义与后绘画",
+      "style": "植物性笔触与金箔词语",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Tomashi Jackson",
+      "zh_name": "托马希·杰克逊",
+      "category": "新表现主义与后绘画",
+      "style": "公民权与色块拼贴的政治抽象",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Torkwase Dyson",
+      "zh_name": "托夸斯·戴森",
+      "category": "新表现主义与后绘画",
+      "style": "黑色几何与空间正义",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Ulala Imai",
+      "zh_name": "今井乌拉拉",
+      "category": "新表现主义与后绘画",
+      "style": "软萌“拟物”油画的温柔荒诞",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Rafa Macarrón",
+      "zh_name": "拉法·马卡龙",
+      "category": "新表现主义与后绘画",
+      "style": "童稚化异形人物与霓虹底色",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Xevi Solà",
+      "zh_name": "谢维·索拉",
+      "category": "新表现主义与后绘画",
+      "style": "迷离色块的人物与空间",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Lucian Freud",
+      "zh_name": "卢西安·弗洛伊德",
+      "category": "当代具象与肖像",
+      "style": "厚重肌理与心理肖像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Frank Auerbach",
+      "zh_name": "弗兰克·奥尔巴赫",
+      "category": "当代具象与肖像",
+      "style": "厚涂堆叠的城市与人物",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Jenny Saville",
+      "zh_name": "珍妮·萨维尔",
+      "category": "当代具象与肖像",
+      "style": "身体尺度与脆弱力量",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Marlene Dumas",
+      "zh_name": "马琳·杜马斯",
+      "category": "当代具象与肖像",
+      "style": "稀释色彩与情感肖像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Peter Doig",
+      "zh_name": "彼得·多伊格",
+      "category": "当代具象与肖像",
+      "style": "记忆风景的梦幻现实",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Luc Tuymans",
+      "zh_name": "吕克·图伊曼斯",
+      "category": "当代具象与肖像",
+      "style": "褪色图像与历史隐喻",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Michaël Borremans",
+      "zh_name": "米夏埃尔·博雷曼斯",
+      "category": "当代具象与肖像",
+      "style": "暗色调与舞台化",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Alice Neel",
+      "zh_name": "爱丽丝·尼尔",
+      "category": "当代具象与肖像",
+      "style": "真实直视的肖像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Chuck Close",
+      "zh_name": "查克·克洛斯",
+      "category": "当代具象与肖像",
+      "style": "网格与像素化肖像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "George Condo",
+      "zh_name": "乔治·康多",
+      "category": "当代具象与肖像",
+      "style": "人格碎片与拟态肖像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Kehinde Wiley",
+      "zh_name": "凯欣德·威利",
+      "category": "当代具象与肖像",
+      "style": "古典语汇中的当代黑人主体",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Kerry James Marshall",
+      "zh_name": "凯里·詹姆斯·马歇尔",
+      "category": "当代具象与肖像",
+      "style": "黑人生活史诗",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Njideka Akunyili Crosby",
+      "zh_name": "恩吉德卡·阿库尼利·克罗斯比",
+      "category": "当代具象与肖像",
+      "style": "拼贴与跨文化日常",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Wangechi Mutu",
+      "zh_name": "万吉奇·穆图",
+      "category": "当代具象与肖像",
+      "style": "女性身体与后殖民神话",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Lynette Yiadom-Boakye",
+      "zh_name": "莉奈特·亚当-博阿基",
+      "category": "当代具象与肖像",
+      "style": "想象肖像与文学性",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Amy Sherald",
+      "zh_name": "艾米·谢拉尔德",
+      "category": "当代具象与肖像",
+      "style": "灰阶肌肤与彩色背景",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Jeremy Mann",
+      "zh_name": "杰里米·曼恩",
+      "category": "当代具象与肖像",
+      "style": "油画都市夜景",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/328a701e3301e5786d671c83cdb8c701.jpg"
+    },
+    {
+      "en_name": "Audrey Kawasaki",
+      "zh_name": "奥黛丽·川崎",
+      "category": "当代具象与肖像",
+      "style": "木板上的新艺术风女性像",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/9051a33cdf6c07cb339afda608e2fea3.jpg"
+    },
+    {
+      "en_name": "Javier Calleja",
+      "zh_name": "哈维尔·卡列哈",
+      "category": "当代具象与肖像",
+      "style": "大眼角色的当代反讽",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/a1b2a93dac30ff24c31f68f792a9e33c.jpg"
+    },
+    {
+      "en_name": "Julie Mehretu",
+      "zh_name": "朱莉·梅雷图",
+      "category": "当代具象与肖像",
+      "style": "建构-地图的抽象叙事（具象/抽象跨界）",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Mark Bradford",
+      "zh_name": "马克·布拉德福德",
+      "category": "当代具象与肖像",
+      "style": "城市材料的抽象社会学",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Barkley L. Hendricks",
+      "zh_name": "巴克利·亨德里克斯",
+      "category": "当代具象与肖像",
+      "style": "冷酷肖像与时尚姿态",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Elizabeth Peyton",
+      "zh_name": "伊丽莎白·佩顿",
+      "category": "当代具象与肖像",
+      "style": "小尺幅亲密肖像的流行文化气质",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "John Currin",
+      "zh_name": "约翰·柯林",
+      "category": "当代具象与肖像",
+      "style": "文艺复兴笔触与讽刺的当代形象",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Salman Toor",
+      "zh_name": "萨尔曼·图尔",
+      "category": "当代具象与肖像",
+      "style": "绿调室内与酷儿都市叙事",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Noah Davis",
+      "zh_name": "诺亚·戴维斯",
+      "category": "当代具象与肖像",
+      "style": "梦境般的黑人日常片段",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Jordan Casteel",
+      "zh_name": "乔丹·卡斯特尔",
+      "category": "当代具象与肖像",
+      "style": "明亮街区肖像与温暖现实",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Toyin Ojih Odutola",
+      "zh_name": "托因·奥吉·奥杜托拉",
+      "category": "当代具象与肖像",
+      "style": "图纹化的皮肤与黑色材料质感",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Amoako Boafo",
+      "zh_name": "阿莫阿科·博阿福",
+      "category": "当代具象与肖像",
+      "style": "指尖涂抹的高饱和肌理肖像，黑色皮肤的亮泽质感",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Christina Quarles",
+      "zh_name": "克里斯蒂娜·夸尔斯",
+      "category": "当代具象与肖像",
+      "style": "交叠扭曲的人体与渐变色层，性别与身份的流动",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Julie Curtiss",
+      "zh_name": "朱莉·柯蒂斯",
+      "category": "当代具象与肖像",
+      "style": "头发/肢体的超现实切片，冷色平面与凝固感",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Nicolas Party",
+      "zh_name": "尼古拉·帕蒂",
+      "category": "当代具象与肖像",
+      "style": "粉彩头像与人造风景，几何化简化与雕塑感",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Shara Hughes",
+      "zh_name": "莎拉·休斯",
+      "category": "当代具象与肖像",
+      "style": "高饱和“心象风景”，花园/室内的精神性构图",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Genieve Figgis",
+      "zh_name": "吉妮薇芙·菲吉斯",
+      "category": "当代具象与肖像",
+      "style": "糖霜般流淌的洛可可再诠释与名画挪用",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Matthew Wong",
+      "zh_name": "黄迈修",
+      "category": "当代具象与肖像",
+      "style": "纯真化笔触与抒情风景，蓝调与孤独主题",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Ewa Juszkiewicz",
+      "zh_name": "艾娃·尤什凯维奇",
+      "category": "当代具象与肖像",
+      "style": "古典女性肖像被花束/织物替代面孔的陌生化",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Louis Fratino",
+      "zh_name": "路易斯·弗拉蒂诺",
+      "category": "当代具象与肖像",
+      "style": "亲密日常与同性题材，温暖线条与小尺幅",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Danielle McKinney",
+      "zh_name": "丹妮尔·麦金尼",
+      "category": "当代具象与肖像",
+      "style": "夜色中的女性独处，烟雾与柔光黑皮肤",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Jenna Gribbon",
+      "zh_name": "詹娜·格里本",
+      "category": "当代具象与肖像",
+      "style": "亲密视角与凝视主题，荧光与肉色的微妙对比",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Anna Park",
+      "zh_name": "安娜·朴",
+      "category": "当代具象与肖像",
+      "style": "木炭的剧场化混乱场景，黑白速度感极强",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Danielle Orchard",
+      "zh_name": "丹妮尔·奥切德",
+      "category": "当代具象与肖像",
+      "style": "几何化女性日常与浴室场景的“新古典”",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Tunji Adeniyi-Jones",
+      "zh_name": "通吉·阿德尼伊-琼斯",
+      "category": "当代具象与肖像",
+      "style": "装饰性密集图案中的舞动人物",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Kwesi Botchway",
+      "zh_name": "奎西·博奇韦",
+      "category": "当代具象与肖像",
+      "style": "天鹅绒般紫黑肤色的凝视肖像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Somaya Critchlow",
+      "zh_name": "索玛雅·克里奇洛",
+      "category": "当代具象与肖像",
+      "style": "小尺幅、讽刺而性感的黑色女性形象",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Sasha Gordon",
+      "zh_name": "萨沙·戈登",
+      "category": "当代具象与肖像",
+      "style": "超写实皮肤与尴尬姿态的自我戏剧",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "María Berrío",
+      "zh_name": "玛丽亚·贝里奥",
+      "category": "当代具象与肖像",
+      "style": "手工纸拼贴的花丛人物与民间神话",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Honor Titus",
+      "zh_name": "奥诺·泰特斯",
+      "category": "当代具象与肖像",
+      "style": "优雅运动题材与复古海报色调",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Jonathan Lyndon Chase",
+      "zh_name": "乔纳森·林登·蔡斯",
+      "category": "当代具象与肖像",
+      "style": "流动性身体与酷儿亲密日常",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Tschabalala Self",
+      "zh_name": "查巴拉拉·塞尔夫",
+      "category": "当代具象与肖像",
+      "style": "布料拼贴+油彩的女性身体图像，强烈纹理与轮廓",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Jennifer Packer",
+      "zh_name": "詹妮弗·帕克",
+      "category": "当代具象与肖像",
+      "style": "低饱和与留白的亲密肖像/静物，流动的线稿",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Otis Kwame Kye Quaicoe",
+      "zh_name": "奥蒂斯·夸梅·凯·夸伊科",
+      "category": "当代具象与肖像",
+      "style": "荧彩背景与黑肤肖像，现代非洲时尚气质",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Emmanuel Taku",
+      "zh_name": "伊曼纽尔·塔库",
+      "category": "当代具象与肖像",
+      "style": "成对人物与织物图案，平滑肌理",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Arcmanoro Niles",
+      "zh_name": "阿克马诺罗·奈尔斯",
+      "category": "当代具象与肖像",
+      "style": "闪粉橙色皮肤与微光场景，私人神话叙事",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Yukimasa Ida",
+      "zh_name": "井田幸昌",
+      "category": "当代具象与肖像",
+      "style": "厚堆涂抹的人像色斑构成",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Hernan Bas",
+      "zh_name": "埃尔南·巴斯",
+      "category": "当代具象与肖像",
+      "style": "青年男性的颓美叙事，象征主义装饰场景",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Honorata (Honore)",
+      "zh_name": "Honorata / Honore",
+      "category": "当代具象与肖像",
+      "style": "扁平化女性形体与高对比块面（新潮时尚语汇）",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Flora Yukhnovich",
+      "zh_name": "弗洛拉·尤赫诺维奇",
+      "category": "当代具象与肖像",
+      "style": "洛可可笔触的当代甜腻翻译",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Caroline Walker",
+      "zh_name": "卡罗琳·沃克",
+      "category": "当代具象与肖像",
+      "style": "透窗窥视的女性室内场景，电影化光线",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Emma Webster",
+      "zh_name": "艾玛·韦伯斯特",
+      "category": "当代具象与肖像",
+      "style": "VR 草图到油画的超自然风景",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Doron Langberg",
+      "zh_name": "多伦·朗伯格",
+      "category": "当代具象与肖像",
+      "style": "荧光柔光的亲密酷儿肖像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Louise Bonnet",
+      "zh_name": "路易丝·博内",
+      "category": "当代具象与肖像",
+      "style": "肿胀体块与情绪化形体",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Sanya Kantarovsky",
+      "zh_name": "萨尼娅·坎塔洛夫斯基",
+      "category": "当代具象与肖像",
+      "style": "讽刺叙事的平面人物",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Portia Zvavahera",
+      "zh_name": "波西亚·兹瓦瓦赫拉",
+      "category": "当代具象与肖像",
+      "style": "非洲装饰纹理中的梦境人物",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Inès Longevial",
+      "zh_name": "伊内丝·隆热维亚尔",
+      "category": "当代具象与肖像",
+      "style": "扁平色块与碎形脸部",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Jia Aili",
+      "zh_name": "贾蔼力",
+      "category": "当代具象与肖像",
+      "style": "后工业寓言式人物与灰冷调",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Edward Ruscha",
+      "zh_name": "爱德华·鲁沙",
+      "category": "观念、挪用与文字图像",
+      "style": "文字绘画与美国风景",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "John Baldessari",
+      "zh_name": "约翰·巴尔代萨里",
+      "category": "观念、挪用与文字图像",
+      "style": "图像-文字的幽默逻辑",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Joseph Kosuth",
+      "zh_name": "约瑟夫·科苏斯",
+      "category": "观念、挪用与文字图像",
+      "style": "语言与物/图像的同一性问题",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "On Kawara",
+      "zh_name": "河原温",
+      "category": "观念、挪用与文字图像",
+      "style": "日期绘画与时间存在",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Barbara Kruger",
+      "zh_name": "芭芭拉·克鲁格",
+      "category": "观念、挪用与文字图像",
+      "style": "黑白照片+红底文字的权力批判",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Sherrie Levine",
+      "zh_name": "雪莉·莱文",
+      "category": "观念、挪用与文字图像",
+      "style": "挪用与作者性",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Richard Prince",
+      "zh_name": "理查德·普林斯",
+      "category": "观念、挪用与文字图像",
+      "style": "万宝路与再拍摄文本",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Jenny Holzer",
+      "zh_name": "珍妮·霍尔泽",
+      "category": "观念、挪用与文字图像",
+      "style": "语言宣言与公共语境（含版画/海报）",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Glenn Ligon",
+      "zh_name": "格伦·里贡",
+      "category": "观念、挪用与文字图像",
+      "style": "文本书写与身份政治",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Raymond Pettibon",
+      "zh_name": "雷蒙德·佩蒂伯恩",
+      "category": "观念、挪用与文字图像",
+      "style": "绘画与文学引文的黑白图像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Mel Bochner",
+      "zh_name": "梅尔·博赫纳",
+      "category": "观念、挪用与文字图像",
+      "style": "概念文字绘画",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Sol LeWitt",
+      "zh_name": "索尔·勒维特",
+      "category": "观念、挪用与文字图像",
+      "style": "概念几何与墙绘指令（以平面呈现纳入）",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Christopher Wool",
+      "zh_name": "克里斯托弗·伍尔",
+      "category": "观念、挪用与文字图像",
+      "style": "大字母模板与涂抹干预",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Kay Rosen",
+      "zh_name": "凯·罗森",
+      "category": "观念、挪用与文字图像",
+      "style": "语言构词的视觉游戏",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Lawrence Weiner",
+      "zh_name": "劳伦斯·韦纳",
+      "category": "观念、挪用与文字图像",
+      "style": "文本命题的平面呈现",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Art & Language",
+      "zh_name": "艺术与语言",
+      "category": "观念、挪用与文字图像",
+      "style": "文本/图表的观念平面",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "John Giorno",
+      "zh_name": "约翰·乔诺",
+      "category": "观念、挪用与文字图像",
+      "style": "诗句文本的画面化",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Keith Haring",
+      "zh_name": "凯思·哈林",
+      "category": "街头艺术与图像文化",
+      "style": "粗线条的公共符号学",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/cd5f0438fa8b4385f913a83f30854023.jpg"
+    },
+    {
+      "en_name": "Kenny Scharf",
+      "zh_name": "肯尼·沙尔夫",
+      "category": "街头艺术与图像文化",
+      "style": "卡通-科幻的霓虹想象",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Jean-Michel Basquiat",
+      "zh_name": "让-米歇尔·巴斯奇亚",
+      "category": "街头艺术与图像文化",
+      "style": "涂鸦+原始符号的高能表达",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Banksy",
+      "zh_name": "班克斯",
+      "category": "街头艺术与图像文化",
+      "style": "社会讽刺的模板喷绘",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Shepard Fairey",
+      "zh_name": "谢泼德·费瑞",
+      "category": "街头艺术与图像文化",
+      "style": "Obey/政治海报图像学",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Futura",
+      "zh_name": "富图拉",
+      "category": "街头艺术与图像文化",
+      "style": "抽象涂鸦的动态",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "KAWS",
+      "zh_name": "考斯",
+      "category": "街头艺术与图像文化",
+      "style": "流行玩偶母题的绘画化",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Barry McGee",
+      "zh_name": "巴里·麦吉",
+      "category": "街头艺术与图像文化",
+      "style": "都市图像与几何拼贴",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "JR",
+      "zh_name": "JR",
+      "category": "街头艺术与图像文化",
+      "style": "大型小麦糊摄影的人脸社会学",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Invader",
+      "zh_name": "入侵者",
+      "category": "街头艺术与图像文化",
+      "style": "8-bit 马赛克的像素入侵",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Os Gemeos",
+      "zh_name": "奥斯双胞胎",
+      "category": "街头艺术与图像文化",
+      "style": "巴西壁画的黄色人物与图案套叠",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Miss Van",
+      "zh_name": "米斯·凡",
+      "category": "街头艺术与图像文化",
+      "style": "女性形象的曲线与洛可可街头",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Blu",
+      "zh_name": "布鲁",
+      "category": "街头艺术与图像文化",
+      "style": "大型动画式壁画的政治寓言",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Felipe Pantone",
+      "zh_name": "费利佩·潘通",
+      "category": "街头艺术与图像文化",
+      "style": "渐变色×欧普网格的速度视觉",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Okuda San Miguel",
+      "zh_name": "奥库达·圣米格尔",
+      "category": "街头艺术与图像文化",
+      "style": "多面体+彩虹配色的人物/动物",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "D*Face",
+      "zh_name": "D*Face",
+      "category": "街头艺术与图像文化",
+      "style": "流行漫画化骷髅与反乌托邦幽默",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Buff Monster",
+      "zh_name": "巴夫怪兽",
+      "category": "街头艺术与图像文化",
+      "style": "粉色冰淇淋宇宙与可爱末日",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Stik",
+      "zh_name": "斯蒂克",
+      "category": "街头艺术与图像文化",
+      "style": "极简火柴人角色的温柔公共介入",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "RETNA",
+      "zh_name": "RETNA",
+      "category": "街头艺术与图像文化",
+      "style": "书法格的抽象文字立面",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "eL Seed",
+      "zh_name": "艾尔·塞德",
+      "category": "街头艺术与图像文化",
+      "style": "阿拉伯书法涂鸦的彩色曲线",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "1010",
+      "zh_name": "1010",
+      "category": "街头艺术与图像文化",
+      "style": "“纸洞/虫洞”错视渐变洞口",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Hoxxoh",
+      "zh_name": "霍克索",
+      "category": "街头艺术与图像文化",
+      "style": "圆涡喷绘的时间螺旋",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Vhils",
+      "zh_name": "Vhils",
+      "category": "街头艺术与图像文化",
+      "style": "壁面“雕刻”肖像的负形图像学",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "ROA",
+      "zh_name": "ROA",
+      "category": "街头艺术与图像文化",
+      "style": "黑白动物解剖与城市生态的野生图像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Nychos",
+      "zh_name": "Nychos",
+      "category": "街头艺术与图像文化",
+      "style": "解剖/爆裂卡通的速度线语言",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Swoon",
+      "zh_name": "Swoon",
+      "category": "街头艺术与图像文化",
+      "style": "浮雕感纸刻人像小麦糊（版画气质强）",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Faith XLVII",
+      "zh_name": "Faith XLVII",
+      "category": "街头艺术与图像文化",
+      "style": "手写文字/图像的诗性公共叙事",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Lady Pink",
+      "zh_name": "莱迪·粉红",
+      "category": "街头艺术与图像文化",
+      "style": "女性涂鸦先驱，漫画化人物",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Blek le Rat",
+      "zh_name": "黑鼠",
+      "category": "街头艺术与图像文化",
+      "style": "模板涂鸦先驱的黑白剪影",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "FAILE",
+      "zh_name": "FAILE",
+      "category": "街头艺术与图像文化",
+      "style": "复古拼贴的丝网印刷/街头图像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Etam Cru",
+      "zh_name": "埃坦组合",
+      "category": "街头艺术与图像文化",
+      "style": "超现实大尺幅墙绘",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Millo",
+      "zh_name": "米洛",
+      "category": "街头艺术与图像文化",
+      "style": "黑白城市童话与粗线条人物",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Maya Hayuk",
+      "zh_name": "玛雅·哈尤克",
+      "category": "街头艺术与图像文化",
+      "style": "霓虹几何条纹的墙面织物感",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Henri Cartier-Bresson",
+      "zh_name": "亨利·卡蒂埃-布列松",
+      "category": "摄影（经典—现代—当代）",
+      "style": "决定性瞬间",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Robert Capa",
+      "zh_name": "罗伯特·卡帕",
+      "category": "摄影（经典—现代—当代）",
+      "style": "战地新闻摄影",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Dorothea Lange",
+      "zh_name": "多萝西娅·兰格",
+      "category": "摄影（经典—现代—当代）",
+      "style": "大萧条的人文关怀",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Walker Evans",
+      "zh_name": "沃克·埃文斯",
+      "category": "摄影（经典—现代—当代）",
+      "style": "纪实与美国现实",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Ansel Adams",
+      "zh_name": "安塞尔·亚当斯",
+      "category": "摄影（经典—现代—当代）",
+      "style": "风光摄影与区域系统",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Edward Weston",
+      "zh_name": "爱德华·韦斯顿",
+      "category": "摄影（经典—现代—当代）",
+      "style": "形式主义静物与人体",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Man Ray",
+      "zh_name": "曼·雷",
+      "category": "摄影（经典—现代—当代）",
+      "style": "达达/超现实摄影与光影实验",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Brassaï",
+      "zh_name": "布拉塞",
+      "category": "摄影（经典—现代—当代）",
+      "style": "巴黎夜与都市人群",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "André Kertész",
+      "zh_name": "安德烈·柯特兹",
+      "category": "摄影（经典—现代—当代）",
+      "style": "现代摄影的诗意",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Berenice Abbott",
+      "zh_name": "贝瑞尼斯·阿博特",
+      "category": "摄影（经典—现代—当代）",
+      "style": "纽约都市影像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Diane Arbus",
+      "zh_name": "黛安·阿勃丝",
+      "category": "摄影（经典—现代—当代）",
+      "style": "边缘群体的直视",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Garry Winogrand",
+      "zh_name": "加里·维诺格兰德",
+      "category": "摄影（经典—现代—当代）",
+      "style": "街头摄影的洪流",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Lee Friedlander",
+      "zh_name": "李·弗里德兰德",
+      "category": "摄影（经典—现代—当代）",
+      "style": "反身结构与自指",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "William Eggleston",
+      "zh_name": "威廉·埃格尔斯顿",
+      "category": "摄影（经典—现代—当代）",
+      "style": "彩色摄影先驱",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Stephen Shore",
+      "zh_name": "斯蒂芬·肖尔",
+      "category": "摄影（经典—现代—当代）",
+      "style": "新地形与美式日常",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Joel Meyerowitz",
+      "zh_name": "乔尔·迈耶罗维茨",
+      "category": "摄影（经典—现代—当代）",
+      "style": "街头与色彩",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Saul Leiter",
+      "zh_name": "索尔·莱特",
+      "category": "摄影（经典—现代—当代）",
+      "style": "雨窗色块与诗性街头",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Jeff Wall",
+      "zh_name": "杰夫·沃尔",
+      "category": "摄影（经典—现代—当代）",
+      "style": "大型灯箱与摆拍叙事",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Gregory Crewdson",
+      "zh_name": "格雷戈里·克鲁德森",
+      "category": "摄影（经典—现代—当代）",
+      "style": "剧照化郊区景观",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Philip-Lorca diCorcia",
+      "zh_name": "菲利普-洛卡·迪科西亚",
+      "category": "摄影（经典—现代—当代）",
+      "style": "街头摆拍与灯光控制",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Cindy Sherman",
+      "zh_name": "辛迪·舍曼",
+      "category": "摄影（经典—现代—当代）",
+      "style": "身份扮演的观念摄影",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Nan Goldin",
+      "zh_name": "南·戈尔丁",
+      "category": "摄影（经典—现代—当代）",
+      "style": "亲密纪实",
+      "sensitive": true,
+      "note": "内容敏感：裸露/亲密",
+      "img": ""
+    },
+    {
+      "en_name": "Wolfgang Tillmans",
+      "zh_name": "沃尔夫冈·提尔曼斯",
+      "category": "摄影（经典—现代—当代）",
+      "style": "从抽象到现实的自由摄影",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Rineke Dijkstra",
+      "zh_name": "莱涅克·迪克斯特拉",
+      "category": "摄影（经典—现代—当代）",
+      "style": "成长与转变肖像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Andreas Gursky",
+      "zh_name": "安德烈亚斯·古尔斯基",
+      "category": "摄影（经典—现代—当代）",
+      "style": "全球化场景的宏观视角",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Thomas Struth",
+      "zh_name": "托马斯·斯特鲁特",
+      "category": "摄影（经典—现代—当代）",
+      "style": "博物馆与城市秩序",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Thomas Ruff",
+      "zh_name": "托马斯·鲁夫",
+      "category": "摄影（经典—现代—当代）",
+      "style": "客观肖像与图像系统",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Candida Höfer",
+      "zh_name": "坎迪达·赫费尔",
+      "category": "摄影（经典—现代—当代）",
+      "style": "建筑内部的秩序",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Bernd & Hilla Becher",
+      "zh_name": "伯恩德与希拉·贝歇尔",
+      "category": "摄影（经典—现代—当代）",
+      "style": "工业类型学（摄影）",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Hiroshi Sugimoto",
+      "zh_name": "杉本博司",
+      "category": "摄影（经典—现代—当代）",
+      "style": "时间与存在的冥想",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Daido Moriyama",
+      "zh_name": "森山大道",
+      "category": "摄影（经典—现代—当代）",
+      "style": "粗粒黑白与街头兽性",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Nobuyoshi Araki",
+      "zh_name": "荒木经惟",
+      "category": "摄影（经典—现代—当代）",
+      "style": "亲密与都市欲望",
+      "sensitive": true,
+      "note": "内容敏感：裸露/情色",
+      "img": ""
+    },
+    {
+      "en_name": "Alec Soth",
+      "zh_name": "亚历克·索思",
+      "category": "摄影（经典—现代—当代）",
+      "style": "公路与美国叙事",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Zanele Muholi",
+      "zh_name": "扎内勒·穆霍利",
+      "category": "摄影（经典—现代—当代）",
+      "style": "黑人酷儿群体肖像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Pieter Hugo",
+      "zh_name": "彼得·雨果",
+      "category": "摄影（经典—现代—当代）",
+      "style": "非洲当代的复杂现实",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Rinko Kawauchi",
+      "zh_name": "川内伦子",
+      "category": "摄影（经典—现代—当代）",
+      "style": "日常光影的细微诗性",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Taryn Simon",
+      "zh_name": "塔琳·西蒙",
+      "category": "摄影（经典—现代—当代）",
+      "style": "档案与权力的隐形结构",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Vik Muniz",
+      "zh_name": "维克·穆尼斯",
+      "category": "摄影（经典—现代—当代）",
+      "style": "以材料构图再摄影",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Ori Gersht",
+      "zh_name": "奥里·格施特",
+      "category": "摄影（经典—现代—当代）",
+      "style": "静物爆裂与时间凝固",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Trevor Paglen",
+      "zh_name": "特雷弗·帕格伦",
+      "category": "摄影（经典—现代—当代）",
+      "style": "监控与不可见的图景",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Shirin Neshat",
+      "zh_name": "席琳·娜沙特",
+      "category": "摄影（经典—现代—当代）",
+      "style": "摄影/影像中的女性与权力",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Irving Penn",
+      "zh_name": "欧文·佩恩",
+      "category": "摄影（经典—现代—当代）",
+      "style": "极简背景与质感静物/肖像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Richard Avedon",
+      "zh_name": "理查德·阿维顿",
+      "category": "摄影（经典—现代—当代）",
+      "style": "高调白底肖像与瞬间表演",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Helmut Newton",
+      "zh_name": "赫尔穆特·牛顿",
+      "category": "摄影（经典—现代—当代）",
+      "style": "黑白时尚与权力情色",
+      "sensitive": true,
+      "note": "内容敏感：裸露/情色",
+      "img": ""
+    },
+    {
+      "en_name": "Guy Bourdin",
+      "zh_name": "居伊·布尔丁",
+      "category": "摄影（经典—现代—当代）",
+      "style": "极饱和色与叙事时尚构图",
+      "sensitive": true,
+      "note": "内容敏感：情色暗示",
+      "img": ""
+    },
+    {
+      "en_name": "William Klein",
+      "zh_name": "威廉·克莱因",
+      "category": "摄影（经典—现代—当代）",
+      "style": "颗粒/广角/速度的城市冲击",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Martin Parr",
+      "zh_name": "马丁·帕尔",
+      "category": "摄影（经典—现代—当代）",
+      "style": "闪光饱和的庸常讽刺",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Vivian Maier",
+      "zh_name": "维维安·迈尔",
+      "category": "摄影（经典—现代—当代）",
+      "style": "晚发现的街头日常",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Sebastião Salgado",
+      "zh_name": "塞巴斯蒂昂·萨尔加多",
+      "category": "摄影（经典—现代—当代）",
+      "style": "史诗纪实的黑白光泽",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Masahisa Fukase",
+      "zh_name": "深濑昌久",
+      "category": "摄影（经典—现代—当代）",
+      "style": "乌鸦与孤独的形象学",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Eikoh Hosoe",
+      "zh_name": "细江英公",
+      "category": "摄影（经典—现代—当代）",
+      "style": "前卫肢体与高对比实验）",
+      "sensitive": true,
+      "note": "内容敏感：身体/情色（部分作品",
+      "img": ""
+    },
+    {
+      "en_name": "Shomei Tomatsu",
+      "zh_name": "东松照明",
+      "category": "摄影（经典—现代—当代）",
+      "style": "战后日本的物质碎片化",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Todd Hido",
+      "zh_name": "托德·希多",
+      "category": "摄影（经典—现代—当代）",
+      "style": "郊区夜色与迷离车窗",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Gregory Halpern",
+      "zh_name": "格雷戈里·哈尔彭",
+      "category": "摄影（经典—现代—当代）",
+      "style": "新纪实的魔幻现实",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Thomas Demand",
+      "zh_name": "托马斯·德曼",
+      "category": "摄影（经典—现代—当代）",
+      "style": "纸模型的“伪现实”摄影",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Tyler Mitchell",
+      "zh_name": "泰勒·米切尔",
+      "category": "摄影（经典—现代—当代）",
+      "style": "新一代时尚/肖像：自然绿地与青春色调",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Petra Collins",
+      "zh_name": "佩特拉·柯林斯",
+      "category": "摄影（经典—现代—当代）",
+      "style": "少女感朦胧粉色，怀旧梦境叙事",
+      "sensitive": true,
+      "note": "内容敏感：可能含裸露",
+      "img": ""
+    },
+    {
+      "en_name": "Nadia Lee Cohen",
+      "zh_name": "纳迪娅·李·科恩",
+      "category": "摄影（经典—现代—当代）",
+      "style": "70s 复古饱和色的戏剧化角色摆拍",
+      "sensitive": true,
+      "note": "内容敏感：情色暗示/成人化视觉",
+      "img": ""
+    },
+    {
+      "en_name": "Juno Calypso",
+      "zh_name": "朱诺·卡利普索",
+      "category": "摄影（经典—现代—当代）",
+      "style": "粉色系孤独自我扮演与套间叙事",
+      "sensitive": true,
+      "note": "内容敏感：情色暗示",
+      "img": ""
+    },
+    {
+      "en_name": "Harley Weir",
+      "zh_name": "哈利·韦尔",
+      "category": "摄影（经典—现代—当代）",
+      "style": "亲密肌理与极简构图的色彩研究",
+      "sensitive": true,
+      "note": "内容敏感：可能含裸露",
+      "img": ""
+    },
+    {
+      "en_name": "Ren Hang",
+      "zh_name": "任航",
+      "category": "摄影（经典—现代—当代）",
+      "style": "直接而诗性的身体/自然摆拍",
+      "sensitive": true,
+      "note": "内容敏感：裸露",
+      "img": ""
+    },
+    {
+      "en_name": "Mous Lamrabat",
+      "zh_name": "穆斯·拉姆拉巴特",
+      "category": "摄影（经典—现代—当代）",
+      "style": "摩洛哥符号×品牌挪用的超现实合成",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Zhong Lin",
+      "zh_name": "钟灵",
+      "category": "摄影（经典—现代—当代）",
+      "style": "高饱和/高闪的当代时尚肖像实验",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Ismail Zaidy",
+      "zh_name": "伊斯梅尔·扎伊迪",
+      "category": "摄影（经典—现代—当代）",
+      "style": "摩洛哥粉彩织物与亲属肖像的符号构图",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Carlota Guerrero",
+      "zh_name": "卡洛塔·格雷罗",
+      "category": "摄影（经典—现代—当代）",
+      "style": "女性社群仪式与柔光编排",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Coco Capitán",
+      "zh_name": "可可·卡皮坦",
+      "category": "摄影（经典—现代—当代）",
+      "style": "手写文字与时尚叙事的青春气质",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Synchrodogs",
+      "zh_name": "同步狗",
+      "category": "摄影（经典—现代—当代）",
+      "style": "乌克兰自然+人体的超现实摆拍",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Parker Day",
+      "zh_name": "帕克·戴",
+      "category": "摄影（经典—现代—当代）",
+      "style": "霓虹戏服与戏剧角色的饱和影棚",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Evelyn Bencicova",
+      "zh_name": "伊芙琳·本奇措娃",
+      "category": "摄影（经典—现代—当代）",
+      "style": "冷灰极简空间的秩序化人群",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Elizaveta Porodina",
+      "zh_name": "伊丽莎白塔·波罗迪纳",
+      "category": "摄影（经典—现代—当代）",
+      "style": "高饱和时尚肖像与面纱光影",
+      "sensitive": true,
+      "note": "内容敏感：可能含裸露",
+      "img": ""
+    },
+    {
+      "en_name": "Prince Gyasi",
+      "zh_name": "普林斯·贾西",
+      "category": "摄影（经典—现代—当代）",
+      "style": "iPhone 超饱和平面肖像（加纳）",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Thandiwe Muriu",
+      "zh_name": "坦迪韦·穆留",
+      "category": "摄影（经典—现代—当代）",
+      "style": "肯尼亚织物图案中“隐身”的肖像构图",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Aïda Muluneh",
+      "zh_name": "艾达·姆卢内",
+      "category": "摄影（经典—现代—当代）",
+      "style": "脸绘与几何背景的埃塞俄比亚肖像语法",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Feng Li",
+      "zh_name": "李峰/小白",
+      "category": "摄影（经典—现代—当代）",
+      "style": "闪光直射的魔幻现实街拍",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Brooke DiDonato",
+      "zh_name": "布鲁克·迪多纳托",
+      "category": "摄影（经典—现代—当代）",
+      "style": "粉彩郊区与身体错位的超现实摆拍",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Pol Kurucz",
+      "zh_name": "波尔·库鲁奇",
+      "category": "摄影（经典—现代—当代）",
+      "style": "霓虹戏剧化角色与高度舞台化色调",
+      "sensitive": true,
+      "note": "内容敏感：情色/成人化风格",
+      "img": ""
+    },
+    {
+      "en_name": "Cho Gi-Seok",
+      "zh_name": "赵基锡",
+      "category": "摄影（经典—现代—当代）",
+      "style": "花器/饰物与人像的东方静物主义",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Hassan Hajjaj",
+      "zh_name": "哈桑·哈贾吉",
+      "category": "摄影（经典—现代—当代）",
+      "style": "摩洛哥图案×波普肖像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Mika Ninagawa",
+      "zh_name": "蜷川实花",
+      "category": "摄影（经典—现代—当代）",
+      "style": "高饱和花卉与金鱼的绚烂视觉",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Luo Yang",
+      "zh_name": "罗洋",
+      "category": "摄影（经典—现代—当代）",
+      "style": "中国青年群像与凝视",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Leslie Zhang",
+      "zh_name": "张家诚",
+      "category": "摄影（经典—现代—当代）",
+      "style": "东方怀旧时尚的红粉摄影",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Chen Man",
+      "zh_name": "陈曼",
+      "category": "摄影（经典—现代—当代）",
+      "style": "工业时尚与中国符号的高饱和构图",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Zhang Kechun",
+      "zh_name": "张克纯",
+      "category": "摄影（经典—现代—当代）",
+      "style": "雾霭淡彩的中国风景叙事",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Yushi Li",
+      "zh_name": "李昱西",
+      "category": "摄影（经典—现代—当代）",
+      "style": "女性凝视与亲密权力",
+      "sensitive": true,
+      "note": "内容敏感：可能含裸露",
+      "img": ""
+    },
+    {
+      "en_name": "Daniel Sannwald",
+      "zh_name": "丹尼尔·桑沃尔德",
+      "category": "摄影（经典—现代—当代）",
+      "style": "科幻时尚与合成光效",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Mary Blair",
+      "zh_name": "玛丽·布莱尔",
+      "category": "插画、漫画与视觉叙事",
+      "style": "迪士尼色彩与形状语言",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/4cb7b659b117a7453a83428c2317cf20.jpg"
+    },
+    {
+      "en_name": "Charley Harper",
+      "zh_name": "查理·哈珀",
+      "category": "插画、漫画与视觉叙事",
+      "style": "几何极简的自然插画",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Victo Ngai",
+      "zh_name": "倪传婧",
+      "category": "插画、漫画与视觉叙事",
+      "style": "中西融合的精细插画",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/5508ac0785214912747351fa2faa874d.jpg"
+    },
+    {
+      "en_name": "Loish",
+      "zh_name": "洛伊什",
+      "category": "插画、漫画与视觉叙事",
+      "style": "数字插画与柔和女性像",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/8ae31bf649fc17eb3595c1ce0f6ea73c.jpg"
+    },
+    {
+      "en_name": "Alan Fearnley",
+      "zh_name": "艾伦·费恩利",
+      "category": "插画、漫画与视觉叙事",
+      "style": "复古汽车绘画",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/52ae7d952e22d08fc8f031fde1670c8d.jpg"
+    },
+    {
+      "en_name": "James Jean",
+      "zh_name": "詹姆斯·让",
+      "category": "插画、漫画与视觉叙事",
+      "style": "超现实青年图像学",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Moebius / Jean Giraud",
+      "zh_name": "莫比乌斯",
+      "category": "插画、漫画与视觉叙事",
+      "style": "法国漫画的科幻诗学",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Yoshitaka Amano",
+      "zh_name": "天野喜孝",
+      "category": "插画、漫画与视觉叙事",
+      "style": "幻想系角色与墨色线条",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Katsuhiro Otomo",
+      "zh_name": "大友克洋",
+      "category": "插画、漫画与视觉叙事",
+      "style": "赛博朋克漫画视觉",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Kim Jung Gi",
+      "zh_name": "金政基",
+      "category": "插画、漫画与视觉叙事",
+      "style": "即兴速写的庞大能量",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "H. R. Giger",
+      "zh_name": "汉斯·鲁道夫·吉格尔",
+      "category": "插画、漫画与视觉叙事",
+      "style": "生物机械的黑暗插画",
+      "sensitive": true,
+      "note": "内容敏感：黑暗/情色",
+      "img": ""
+    },
+    {
+      "en_name": "Shaun Tan",
+      "zh_name": "谢恩·谭",
+      "category": "插画、漫画与视觉叙事",
+      "style": "童话与异托邦的绘本叙事",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Malika Favre",
+      "zh_name": "玛利卡·法夫尔",
+      "category": "插画、漫画与视觉叙事",
+      "style": "极简剪影与高对比色块",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Tatsuro Kiuchi",
+      "zh_name": "木内达朗",
+      "category": "插画、漫画与视觉叙事",
+      "style": "平面叙事与温润肌理",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Pascal Campion",
+      "zh_name": "帕斯卡·坎皮恩",
+      "category": "插画、漫画与视觉叙事",
+      "style": "城市日常的暖色叙事",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Chris Ware",
+      "zh_name": "克里斯·韦尔",
+      "category": "插画、漫画与视觉叙事",
+      "style": "结构化版面与信息图式漫画",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Art Spiegelman",
+      "zh_name": "阿特·斯皮格尔曼",
+      "category": "插画、漫画与视觉叙事",
+      "style": "Maus 的象征化叙事",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Mike Mignola",
+      "zh_name": "迈克·米格诺拉",
+      "category": "插画、漫画与视觉叙事",
+      "style": "大面积黑影与几何剪影",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Edward Gorey",
+      "zh_name": "爱德华·戈里",
+      "category": "插画、漫画与视觉叙事",
+      "style": "维多利亚式黑色幽默钢笔画",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Quentin Blake",
+      "zh_name": "昆廷·布莱克",
+      "category": "插画、漫画与视觉叙事",
+      "style": "松弛线条与儿童文学气质",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Junji Ito",
+      "zh_name": "伊藤润二",
+      "category": "插画、漫画与视觉叙事",
+      "style": "细密线条的恐怖意象",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Taiyo Matsumoto",
+      "zh_name": "松本大洋",
+      "category": "插画、漫画与视觉叙事",
+      "style": "速度线与粗颗粒笔触",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Tishk Barzanji",
+      "zh_name": "提什克·巴尔赞吉",
+      "category": "插画、漫画与视觉叙事",
+      "style": "几何建筑与粉彩超现实空间",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Ori Toor",
+      "zh_name": "奥里·图尔",
+      "category": "插画、漫画与视觉叙事",
+      "style": "迷幻曲线与密集细节的流动画面（静帧具辨识度）",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Yukai Du",
+      "zh_name": "都暻岚",
+      "category": "插画、漫画与视觉叙事",
+      "style": "颗粒质感与几何切面的平面序列",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Sachin Teng",
+      "zh_name": "萨钦·滕",
+      "category": "插画、漫画与视觉叙事",
+      "style": "解剖/分层拼贴的数字肖像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Tomer Hanuka",
+      "zh_name": "托默·哈努卡",
+      "category": "插画、漫画与视觉叙事",
+      "style": "叙事性强的高对比流行插画",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Little Thunder",
+      "zh_name": "小克",
+      "category": "插画、漫画与视觉叙事",
+      "style": "霓虹都市的女性叙事与东方情绪",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "WLOP",
+      "zh_name": "王凌",
+      "category": "插画、漫画与视觉叙事",
+      "style": "冷灰单色+青绿色点缀的数字光影",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Ross Tran / RossDraws",
+      "zh_name": "罗斯·特兰 / RossDraws",
+      "category": "插画、漫画与视觉叙事",
+      "style": "霓虹边缘与高亮皮肤的流行数字肖像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Guweiz",
+      "zh_name": "郭伟",
+      "category": "插画、漫画与视觉叙事",
+      "style": "逆光剪影与长发飘带的叙事氛围",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "James R. Eads",
+      "zh_name": "詹姆斯·R·伊兹",
+      "category": "插画、漫画与视觉叙事",
+      "style": "星云与旋涡的迷幻群像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Cinta Vidal",
+      "zh_name": "辛塔·比达尔",
+      "category": "插画、漫画与视觉叙事",
+      "style": "反重力建筑的温暖插画拼合",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Ilya Kuvshinov",
+      "zh_name": "伊利亚·库夫希诺夫",
+      "category": "插画、漫画与视觉叙事",
+      "style": "数字动漫女性肖像，玻璃质感眼眸与霓虹边缘",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "James Gilleard",
+      "zh_name": "詹姆斯·吉列德",
+      "category": "插画、漫画与视觉叙事",
+      "style": "几何块面+颗粒的复古风景/人物",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Ryo Takemasa",
+      "zh_name": "竹政亮",
+      "category": "插画、漫画与视觉叙事",
+      "style": "平面旅行风景与清透配色",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "eBoy",
+      "zh_name": "eBoy",
+      "category": "插画、漫画与视觉叙事",
+      "style": "像素都市“微缩世界”的平面图像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Waneella",
+      "zh_name": "Waneella",
+      "category": "插画、漫画与视觉叙事",
+      "style": "赛博/日常的像素夜景与孤寂氛围",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Inio Asano",
+      "zh_name": "浅野一二〇",
+      "category": "插画、漫画与视觉叙事",
+      "style": "都市疏离的细密漫画风景",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Shintaro Kago",
+      "zh_name": "駕籠真太郎",
+      "category": "插画、漫画与视觉叙事",
+      "style": "Ero Guro 分裂拼贴",
+      "sensitive": true,
+      "note": "内容敏感：成人/血腥",
+      "img": ""
+    },
+    {
+      "en_name": "Tadaomi Shibuya",
+      "zh_name": "渋谷忠臣",
+      "category": "插画、漫画与视觉叙事",
+      "style": "硬边几何解构的人物插画",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Oamul Lu",
+      "zh_name": "卢骁 / 卤猫",
+      "category": "插画、漫画与视觉叙事",
+      "style": "轻柔色块与都市温情插画",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Tatsuyuki Tanaka",
+      "zh_name": "田中达之",
+      "category": "插画、漫画与视觉叙事",
+      "style": "赛博细节的设定图像（以平面纳入）",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Casey Reas",
+      "zh_name": "凯西·雷亚斯",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "Processing 共创者，生成系统美学",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Zach Lieberman",
+      "zh_name": "扎克·利伯曼",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "交互与代码诗歌",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Golan Levin",
+      "zh_name": "戈兰·莱文",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "声音-图像的交互可视化",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Camille Utterback",
+      "zh_name": "卡米尔·厄特巴克",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "身体追踪的动态绘画",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Refik Anadol",
+      "zh_name": "雷菲克·阿纳多",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "数据绘景与AI视觉",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Memo Akten",
+      "zh_name": "梅莫·阿克滕",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "机器学习美学与具身化",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Mario Klingemann",
+      "zh_name": "马里奥·克林格曼",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "神经网络与AI图像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Anna Ridler",
+      "zh_name": "安娜·里德勒",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "数据叙事与AI训练集诗学",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Vera Molnár",
+      "zh_name": "薇拉·莫尔纳",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "早期计算绘图与几何变奏",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Frieder Nake",
+      "zh_name": "弗里德尔·纳克",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "生成算法与绘图仪艺术",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Manfred Mohr",
+      "zh_name": "曼弗雷德·莫尔",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "逻辑结构与程序绘画",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "LIA",
+      "zh_name": "莉娅",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "生成图形的诗性系统",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Marius Watz",
+      "zh_name": "马留斯·瓦茨",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "参数化几何与色彩",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Joshua Davis",
+      "zh_name": "约书亚·戴维斯",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "早期网页生成图形",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Jared Tarbell",
+      "zh_name": "贾里德·塔贝尔",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "生成几何与自然系统",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Tom White",
+      "zh_name": "汤姆·怀特",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "感知引擎与机器视错觉",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Helena Sarin",
+      "zh_name": "海琳娜·萨林",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "GAN 绘画与花草纹理",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Robbie Barrat",
+      "zh_name": "罗比·巴拉特",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "GAN 藏品与时装图像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Beeple / Mike Winkelmann",
+      "zh_name": "比普",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "高产数字插画与CG合成",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Pak",
+      "zh_name": "帕克",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "概念化的数字图像与版式",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Sougwen Chung",
+      "zh_name": "钟苏芬",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "人机共绘的轨迹层叠",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Sofia Crespo",
+      "zh_name": "索菲娅·克雷斯波",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "AI 生物多样图像与纹理",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Quayola",
+      "zh_name": "夸约拉",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "计算花卉/古典解构的图像帧",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Karsten Schmidt / toxi",
+      "zh_name": "卡斯滕·施密特",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "现代生成图形体系",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Jer Thorp",
+      "zh_name": "杰尔·索普",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "数据叙事与可视化诗学",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Dextro",
+      "zh_name": "德克斯特罗",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "早期网络生成动画/图形（可取静帧）",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Claire Silver",
+      "zh_name": "克莱尔·西尔弗",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "AI 协作绘画/拼贴的诗性身份叙事",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Roope Rainisto",
+      "zh_name": "鲁佩·雷尼斯托",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "“AI 摄影”叙事系列",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Boris Eldagsen",
+      "zh_name": "鲍里斯·埃尔达格森",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "AI 暗黑影像的伪摄影语法",
+      "sensitive": true,
+      "note": "内容敏感：黑暗主题",
+      "img": ""
+    },
+    {
+      "en_name": "Andrés Reisinger",
+      "zh_name": "安德烈斯·雷辛格",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "粉调梦幻 CG 室内与物件",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Fvckrender",
+      "zh_name": "弗克伦德",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "晶体/棱镜质感的 3D 数字图像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Mad Dog Jones",
+      "zh_name": "疯狗琼斯",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "赛博朋克霓虹拼贴与 2D 合成",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Kidmograph / Gustavo Torres",
+      "zh_name": "Kidmograph / 古斯塔沃·托雷斯",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "合成立体/回路的赛博怀旧图像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "XCOPY",
+      "zh_name": "XCOPY",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "高对比霓虹的故障/反乌托邦图像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Sam Rolfes",
+      "zh_name": "萨姆·罗尔夫斯",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "数字分身与碎裂肖像的表演性图像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Sarah Zucker / zxo",
+      "zh_name": "莎拉·祖克 / zxo",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "VHS/霓虹故障美学的数码静帧",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "OseanWorld",
+      "zh_name": "奥森世界",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "糖彩黏液状的超梦 3D 图像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Blake Kathryn",
+      "zh_name": "布莱克·凯瑟琳",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "亮面糖果 CG 与未来物件",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Ivona Tau",
+      "zh_name": "伊沃娜·陶",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "长曝光/噪声质感的 AI 摄影美学",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Entangled Others",
+      "zh_name": "Entangled Others",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "生物形态的生成生态图像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Pindar Van Arman",
+      "zh_name": "品达·范·阿曼",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "机器人/生成绘图的平面输出",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Rik Oostenbroek",
+      "zh_name": "里克·乌斯滕布鲁克",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "玻璃/丝绸质感的抽象 3D 色带",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Antoni Tudisco",
+      "zh_name": "安东尼·图迪斯科",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "高光泽“新奢”3D 图像语法",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Ash Thorp",
+      "zh_name": "阿什·索普",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "概念影像的合成静帧，金属/机械美学",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Tyler Hobbs",
+      "zh_name": "泰勒·霍布斯",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "算法自然纹理（Fidenza 等）",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Dmitri Cherniak",
+      "zh_name": "德米特里·切尔尼亚克",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "逻辑极简的生成结构（Ringers）",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Emily Xie",
+      "zh_name": "艾米丽·谢",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "纸染般的生成花纹（Memories of Qilin）",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Matt DesLauriers",
+      "zh_name": "马特·德洛里尔",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "地貌/流线生成（Meridian）",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Anders Hoff / inconvergent",
+      "zh_name": "安德斯·霍夫 / inconvergent",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "线性系统与笔触仿真",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Kjetil Golid",
+      "zh_name": "谢蒂尔·戈利德",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "网格结构与抽象图式",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Zancan",
+      "zh_name": "赞康",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "植物性参数化生成的手感图像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Grant Yun",
+      "zh_name": "格兰特·云",
+      "category": "数字艺术、生成艺术与AI图像",
+      "style": "极简美国风景的数字/画布转译",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Katsushika Hokusai",
+      "zh_name": "葛饰北斋",
+      "category": "东亚图像艺术",
+      "style": "浮世绘的波与图像学",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Utagawa Hiroshige",
+      "zh_name": "歌川广重",
+      "category": "东亚图像艺术",
+      "style": "名所绘与风景版画",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Xu Bing",
+      "zh_name": "徐冰",
+      "category": "东亚图像艺术",
+      "style": "文字图像的版画与书法结构（以平面系列纳入）",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Wu Guanzhong",
+      "zh_name": "吴冠中",
+      "category": "东亚图像艺术",
+      "style": "水墨与现代构成",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Zhang Xiaogang",
+      "zh_name": "张晓刚",
+      "category": "东亚图像艺术",
+      "style": "血缘家族的集体记忆肖像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Yue Minjun",
+      "zh_name": "岳敏君",
+      "category": "东亚图像艺术",
+      "style": "冷笑的当代图像学",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Zeng Fanzhi",
+      "zh_name": "曾梵志",
+      "category": "东亚图像艺术",
+      "style": "面具系列与笔触肌理",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Liu Xiaodong",
+      "zh_name": "刘小东",
+      "category": "东亚图像艺术",
+      "style": "纪实写生与当代叙事",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Hiroshi Nagai",
+      "zh_name": "永井博",
+      "category": "东亚图像艺术",
+      "style": "80年代清新风景与几何构图",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Takashi Murakami",
+      "zh_name": "村上隆",
+      "category": "东亚图像艺术",
+      "style": "超扁平的图像帝国",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Yoshitomo Nara",
+      "zh_name": "奈良美智",
+      "category": "东亚图像艺术",
+      "style": "少女与反叛的扁平肖像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Daido Moriyama",
+      "zh_name": "森山大道",
+      "category": "东亚图像艺术",
+      "style": "粗粒黑白街头",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Nobuyoshi Araki",
+      "zh_name": "荒木经惟",
+      "category": "东亚图像艺术",
+      "style": "亲密纪实与都市",
+      "sensitive": true,
+      "note": "内容敏感：裸露/情色",
+      "img": ""
+    },
+    {
+      "en_name": "Rinko Kawauchi",
+      "zh_name": "川内伦子",
+      "category": "东亚图像艺术",
+      "style": "微光日常",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Park Seo-Bo",
+      "zh_name": "朴栖甫",
+      "category": "东亚图像艺术",
+      "style": "单色画的重复与呼吸",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Lee Ufan",
+      "zh_name": "李禹焕",
+      "category": "东亚图像艺术",
+      "style": "笔触的留白与时间",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Kim Whanki",
+      "zh_name": "金焕基",
+      "category": "东亚图像艺术",
+      "style": "抽象点阵与蓝色诗性",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Ding Yi",
+      "zh_name": "丁乙",
+      "category": "东亚图像艺术",
+      "style": "“十字/井字”点线格的系统抽象",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Fang Lijun",
+      "zh_name": "方力钧",
+      "category": "东亚图像艺术",
+      "style": "光滑平面与“玩笑”冷感的秃头人物",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Aya Takano",
+      "zh_name": "高野绫",
+      "category": "东亚图像艺术",
+      "style": "超扁平的纤细角色与宇宙叙事",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Makoto Aida",
+      "zh_name": "会田诚",
+      "category": "东亚图像艺术",
+      "style": "漫画式夸张与当代日本社会讽刺",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Mr.",
+      "zh_name": "Mr.",
+      "category": "东亚图像艺术",
+      "style": "萌系角色的扁平图像",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Utagawa Kuniyoshi",
+      "zh_name": "歌川国芳",
+      "category": "东亚图像艺术",
+      "style": "浮世绘戏剧化构图",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Ito Jakuchu",
+      "zh_name": "伊藤若冲",
+      "category": "东亚图像艺术",
+      "style": "江户时期的高饱和花鸟细描",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/df9635b39014659ddd9426e2aff35c64.jpg"
+    },
+    {
+      "en_name": "Huang Yuxing",
+      "zh_name": "黄宇兴",
+      "category": "东亚图像艺术",
+      "style": "荧光河流/年轮形态的抽象风景",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Cui Jie",
+      "zh_name": "崔洁",
+      "category": "东亚图像艺术",
+      "style": "现代主义建筑与城市符号的冷调重构",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Ayako Rokkaku",
+      "zh_name": "六角彩子",
+      "category": "东亚图像艺术",
+      "style": "手指绘的彩色女孩与即兴肌理",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Hao Liang",
+      "zh_name": "郝量",
+      "category": "东亚图像艺术",
+      "style": "古典山水语法的当代幻视",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Liu Ye",
+      "zh_name": "刘野",
+      "category": "东亚图像艺术",
+      "style": "扁平冷静的童趣构图与原色块",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Lee Kwang-Ho",
+      "zh_name": "李光浩",
+      "category": "东亚图像艺术",
+      "style": "仙人掌/肖像的超现实细节与冷光质感",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Sun Yitian",
+      "zh_name": "孙一钿",
+      "category": "东亚图像艺术",
+      "style": "超写实充气动物与亮面反光",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Zhang Zipiao",
+      "zh_name": "张子飘",
+      "category": "东亚图像艺术",
+      "style": "肉感花瓣与器官-植物的暧昧抽象",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Chen Fei",
+      "zh_name": "陈飞",
+      "category": "东亚图像艺术",
+      "style": "冷幽默电影化的平面叙事",
+      "sensitive": false,
+      "note": "",
+      "img": "https://img.myhotgirl.top/43003d90862ae429bc04caeb1843dd3b.jpg"
+    },
+    {
+      "en_name": "Cinga Samson",
+      "zh_name": "辛加·萨姆森",
+      "category": "东亚图像艺术",
+      "style": "黑底微光的人物仪式",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Yuichi Hirako",
+      "zh_name": "平子雄一",
+      "category": "东亚图像艺术",
+      "style": "森林-人合体的绿色童话",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Wang Haiyang",
+      "zh_name": "王海洋",
+      "category": "东亚图像艺术",
+      "style": "蜡笔肌理与变形身体的叙事绘画",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Lu Yang",
+      "zh_name": "陆扬",
+      "category": "东亚图像艺术",
+      "style": "数字宗教与电子游戏审美的平面化输出（以二维静帧纳入）",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Yue Wu",
+      "zh_name": "岳万春 “Jam”",
+      "category": "东亚图像艺术",
+      "style": "涂鸦×波普的扁平角色与汉字元素",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Wu Tzu-ning",
+      "zh_name": "吴梓宁",
+      "category": "东亚图像艺术",
+      "style": "拟生物抽象（绘画/版画）",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Peng Jian",
+      "zh_name": "彭健",
+      "category": "东亚图像艺术",
+      "style": "当代水墨的几何山水与留白结构",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Wang Yuyang",
+      "zh_name": "王郁洋",
+      "category": "东亚图像艺术",
+      "style": "机械/人工智能逻辑的绘画映射（二维输出纳入）",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Chen Ke",
+      "zh_name": "陈可",
+      "category": "东亚图像艺术",
+      "style": "少女叙事与粉彩扁平",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Qiu Xiaofei",
+      "zh_name": "邱晓飞",
+      "category": "东亚图像艺术",
+      "style": "记忆图像与物件拼贴的绘画化",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Zhou Zixi",
+      "zh_name": "周子熙",
+      "category": "东亚图像艺术",
+      "style": "当代风景与历史影像重构",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Ayami Kojima",
+      "zh_name": "小岛文美",
+      "category": "东亚图像艺术",
+      "style": "哥特幻想插画的华丽细部",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    },
+    {
+      "en_name": "Tetsuya Ishida",
+      "zh_name": "石田彻也",
+      "category": "东亚图像艺术",
+      "style": "社畜梦魇的超现实写照",
+      "sensitive": false,
+      "note": "",
+      "img": ""
+    }
+  ]
+}
+  </script>
+
+  <script>
+    // 读取内嵌 JSON
+    const DATA = JSON.parse(document.getElementById('artist-data').textContent);
+    const ARTISTS = DATA.artists || [];
+
+    // UI 元素
+    const grid = document.getElementById('grid');
+    const q = document.getElementById('q');
+    const cat = document.getElementById('category');
+    const hideSensitive = document.getElementById('hideSensitive');
+    const countEl = document.getElementById('count');
+
+    // 填充分类
+    const categories = Array.from(new Set(ARTISTS.map(a => a.category))).sort();
+    for (const c of categories) {
+      const opt = document.createElement('option');
+      opt.value = c; opt.textContent = c; cat.appendChild(opt);
+    }
+
+    function createCard(a) {
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.dataset.category = a.category || '';
+      card.dataset.sensitive = a.sensitive ? '1' : '0';
+
+      const thumb = document.createElement('div');
+      thumb.className = 'thumb';
+      if (a.img && a.img.trim()) {
+        const img = new Image();
+        img.loading = 'lazy';
+        img.alt = `${a.en_name} preview`;
+        img.src = a.img.trim();
+        img.onerror = () => { thumb.textContent = '图片加载失败，请检查链接'; };
+        thumb.appendChild(img);
+      } else {
+        thumb.innerHTML = '未设置图片链接<br/>请在 JSON 的 "img" 字段填写 URL';
+      }
+
+      const names = document.createElement('div');
+      names.className = 'names';
+
+      const nameWrapper = document.createElement('div');
+      nameWrapper.innerHTML = `<div class="en">${a.en_name || ''}</div><div class="zh">${a.zh_name || ''}</div>`;
+
+      const copyBtn = document.createElement('button');
+      copyBtn.className = 'copy-btn';
+      copyBtn.textContent = '复制';
+      copyBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const textToCopy = [a.en_name, a.zh_name, a.style].filter(Boolean).join(', ');
+        navigator.clipboard.writeText(textToCopy).then(() => {
+          copyBtn.textContent = '已复制!';
+          setTimeout(() => { copyBtn.textContent = '复制'; }, 1500);
+        }).catch(err => {
+          console.error('Failed to copy: ', err);
+          copyBtn.textContent = '失败';
+          setTimeout(() => { copyBtn.textContent = '复制'; }, 1500);
+        });
+      });
+
+      names.append(nameWrapper, copyBtn);
+
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      const b1 = document.createElement('span'); b1.className = 'badge'; b1.textContent = a.category || ''; meta.appendChild(b1);
+      if (a.sensitive) { const b2 = document.createElement('span'); b2.className = 'badge sensitive'; b2.textContent = '敏感'; meta.appendChild(b2); }
+
+      const style = document.createElement('div'); style.className = 'style'; style.textContent = a.style || '';
+      const note = document.createElement('div'); note.className = 'note'; note.textContent = a.note || ''; if (!a.note) note.style.display = 'none';
+
+      card.append(thumb, names, meta, style, note);
+      return card;
+    }
+
+    function render(list) {
+      grid.innerHTML = '';
+      list.forEach(a => grid.appendChild(createCard(a)));
+      const total = list.length;
+      document.getElementById('count').textContent = `共 ${total} 位`;
+    }
+
+    function applyFilters() {
+      const term = (q.value || '').trim().toLowerCase();
+      const category = cat.value; const hide = hideSensitive.checked;
+      const filtered = ARTISTS.filter(a => {
+        if (category && a.category !== category) return false;
+        if (hide && a.sensitive) return false;
+        if (term) {
+          const hay = [a.en_name, a.zh_name, a.style, a.category, a.note].join(' ').toLowerCase();
+          return hay.includes(term);
+        }
+        return true;
+      });
+      render(filtered);
+    }
+
+    [q, cat, hideSensitive].forEach(el => el.addEventListener('input', applyFilters));
+    render(ARTISTS);
+  </script>
+</body>
+</html>
