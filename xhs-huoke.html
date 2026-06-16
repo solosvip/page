@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>将获客助手配置在小红书使用</title>
+<meta name="description" content="获客助手 × 小红书聚光：从建链接到投放的完整步骤">
+<style>
+  :root{ --accent:#ff2442; --accent-soft:#fff0f2; --ink:#1f2328; --muted:#6b7280; --line:#ececf0; --bg:#f6f6f7; }
+  *{ box-sizing:border-box; }
+  html{ -webkit-text-size-adjust:100%; }
+  body{ margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    line-height:1.75; font-size:16px; }
+  .wrap{ max-width:760px; margin:0 auto; padding:0 16px 64px; }
+  .hero{ background:linear-gradient(135deg,#ff2442 0%,#ff5c7a 100%); color:#fff;
+    border-radius:0 0 22px 22px; padding:40px 28px 34px; box-shadow:0 10px 30px rgba(255,36,66,.18); }
+  .hero .tag{ display:inline-block; font-size:13px; letter-spacing:.04em; background:rgba(255,255,255,.18);
+    padding:5px 12px; border-radius:999px; margin-bottom:14px; }
+  .hero h1{ margin:0; font-size:27px; line-height:1.35; font-weight:800; }
+  .hero .sub{ margin:12px 0 0; font-size:15px; opacity:.92; font-weight:400; }
+  .card{ background:#fff; border-radius:18px; margin-top:-18px; padding:30px 26px 34px;
+    box-shadow:0 6px 24px rgba(20,20,40,.06); }
+  .content{ font-size:16px; }
+  .content h3{ font-size:19px; font-weight:800; margin:34px 0 14px; padding-left:14px;
+    border-left:4px solid var(--accent); line-height:1.5; }
+  .content h3:first-child{ margin-top:4px; }
+  .content h2{ font-size:22px; font-weight:800; margin:36px 0 14px; }
+  .content p{ margin:14px 0; color:#33373d; }
+  .content a{ color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(255,36,66,.35); padding-bottom:1px; }
+  .content a:hover{ background:var(--accent-soft); }
+  .content ul,.content ol{ padding-left:22px; }
+  .content li{ margin:8px 0; }
+  .content img{ display:block; width:100%; height:auto; border-radius:12px; margin:18px 0;
+    border:1px solid var(--line); box-shadow:0 2px 10px rgba(20,20,40,.05); cursor:zoom-in; }
+  .content strong{ font-weight:700; }
+  .content code{ background:#f2f3f5; padding:2px 6px; border-radius:5px; font-size:.92em; }
+  .footer{ margin-top:30px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:13px; }
+  .footer a{ color:var(--muted); }
+  /* 点击放大 */
+  .lb{ position:fixed; inset:0; background:rgba(0,0,0,.88); display:none; align-items:center; justify-content:center;
+    z-index:50; padding:20px; cursor:zoom-out; }
+  .lb.on{ display:flex; }
+  .lb img{ max-width:100%; max-height:100%; border-radius:8px; }
+  @media (max-width:520px){
+    .hero{ padding:32px 20px 28px; border-radius:0 0 18px 18px; } .hero h1{ font-size:23px; }
+    .card{ padding:24px 18px 28px; } .content{ font-size:15.5px; }
+  }
+</style>
+</head>
+<body>
+  <div class="hero">
+    <div class="wrap" style="padding-bottom:0">
+      <span class="tag">小红书 · 投放教程</span>
+      <h1>将获客助手配置在小红书使用</h1>
+      <p class="sub">获客助手 × 小红书聚光：从建链接到投放的完整步骤</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="card">
+      <div class="content">
+<h3>1.  创建获客链接，配置成员及欢迎语等</h3>
+<p>企业可以从企业微信「获客助手」应用首页，点击“创建获客链接”来创建新链接，每个获客链接可配置最多500名成员，客户点击链接后，将平均分配一名成员，当某名成员当日暂无法正常添加客户时，会在分配时自动跳过该成员，避免客户流失。创建链接时，还可配置欢迎语、标签等。</p>
+<p><img alt="" src="https://sfobsidian2.oss-cn-hangzhou.aliyuncs.com/obsidian/page/xhs-huoke/img-1.png" /></p>
+<p>也可以通过 api 调用<a href="https://developer.work.weixin.qq.com/document/path/97297">获客链接管理</a>创建和编辑获客链接，如使用 api创建链接，可结合“<a href="https://developer.work.weixin.qq.com/document/path/92137">欢迎语</a>“及“<a href="https://developer.work.weixin.qq.com/document/path/92118">标签</a>”的能力，为获客链接配置专属欢迎语，或为通过链接添加的客户自动打上标签。</p>
+<h3>2.  将获客助手授权给平台使用</h3>
+<p>从小红书聚光平台，点击「工具」-「企微管理」，点击「前往企微授权」或者「企微扫码授权」。出现二维码后，请使用管理员的企业微信扫描此二维码，完成授权。如主账户未能在聚光平台上找到「企微管理」入口，或者子账户在投放创建计划时无「企微」相关推广目标，请联系小红书平台的广告销售申请权限。<img alt="" src="https://sfobsidian2.oss-cn-hangzhou.aliyuncs.com/obsidian/page/xhs-huoke/img-2.png" /></p>
+<p>在授权时，请选择将要在此平台使用的获客链接进行授权，选择后点击「同意以上授权」即可。请注意，授权给平台的链接将不可用于其他场景，专链专用才可保证数据清晰。下图为授权流程示意图，供参考。</p>
+<p><img alt="" src="https://sfobsidian2.oss-cn-hangzhou.aliyuncs.com/obsidian/page/xhs-huoke/img-3.png" /></p>
+<p>后续如果希望增删授权给平台的链接，可从再次扫码进入授权页，以授权更多链接给平台或删除已授权的链接。也可从企业微信管理后台「客户联系」-「获客助手」-「授权接入获客助手」中，增删链接。</p>
+<p><img alt="" src="https://sfobsidian2.oss-cn-hangzhou.aliyuncs.com/obsidian/page/xhs-huoke/img-4.png" /></p>
+<p><img alt="" src="https://sfobsidian2.oss-cn-hangzhou.aliyuncs.com/obsidian/page/xhs-huoke/img-5.png" /></p>
+<h3>3.  创建带有获客链接的广告落地页</h3>
+<p>使用获客助手在小红书投放时，无需经过落地页，点击按钮后即可添加企业微信。因此，直接创建投放计划即可。</p>
+<h3>4.  创建投放计划，开启高效获客</h3>
+<p>创建投放计划时，投放目标选择「客资收集」，广告类型选择「搜索」，推广标的选择「笔记」；其他链路当前暂未开放，请务必按上述指引创建。推广目标推荐选择「添加企微量」（笔记胶囊/按钮点击量），为保证广告效果，根据小红书平台要求，必须开启智能拓词。</p>
+<p><img alt="" src="https://sfobsidian2.oss-cn-hangzhou.aliyuncs.com/obsidian/page/xhs-huoke/img-6.png" /></p>
+<p><img alt="" src="https://sfobsidian2.oss-cn-hangzhou.aliyuncs.com/obsidian/page/xhs-huoke/img-7.png" /></p>
+<p>设置投放计划中的创意时，转化组件请选择「企微组件」；并在「组件位置」中，同时勾选互动栏胶囊和置顶评论。组件按钮文案可自定义。选择获客链接时，请选择已授权给平台的获客链接。置顶评论文案需明确指引用户点击左下角按钮；如：请点击笔记左下角按钮“立刻参与”。其余内容根据实际情况填写即可。</p>
+<p><img alt="" src="https://sfobsidian2.oss-cn-hangzhou.aliyuncs.com/obsidian/page/xhs-huoke/img-8.png" /></p>
+<h3>5.  查看数据，持续优化效果</h3>
+<p>投放后，可在企业微信「获客助手」-「获客链接」中查看获客链接相关数据，如链接打开人数、添加客户数等；若获客链接异常，无法添加客户时，将通过获客助手应用及<a href="https://developer.work.weixin.qq.com/document/42924">API</a>通知，修改成员配置后即可继续添加。</p>
+<p>广告投放数据，可在聚光推广页面中查看「添加企微/成功添加企微量/企微开口量」数据和对应成本（数据将自动回传，无需手动配置）。</p>
+<p>如有更多问题，可<a href="https://doc.weixin.qq.com/forms/AJEAIQdfAAoAFgAMgYMAEwopt11eDASYf">点此反馈</a></p>
+      </div>
+      <div class="footer">本页由文档自动发布生成 · 2026-06-16</div>
+    </div>
+  </div>
+  <div class="lb" id="lb" onclick="this.classList.remove('on')"><img id="lbimg" src="" alt=""></div>
+  <script>
+    document.querySelectorAll('.content img').forEach(function(im){
+      im.addEventListener('click', function(){
+        document.getElementById('lbimg').src = im.src;
+        document.getElementById('lb').classList.add('on');
+      });
+      im.setAttribute('loading','lazy');
+    });
+  </script>
+</body>
+</html>
