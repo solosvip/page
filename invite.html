@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenSquilla 产品体验官邀请计划</title>
+<link rel="preconnect" href="https://fonts.loli.net">
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin>
+<link href="https://fonts.loli.net/css2?family=Inter:wght@300;400;500&family=Noto+Sans+SC:wght@300;400;500&family=Noto+Serif+SC:wght@200;300;400&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#fff8f1;
+    --ash:#e2e8f0;
+    --ink:#000000;
+    --blue:#006eff;
+    --font-serif:'Playfair Display','Noto Serif SC',Georgia,serif;
+    --font-sans:'Inter','Noto Sans SC',system-ui,-apple-system,sans-serif;
+    --pad-x:clamp(22px,6vw,80px);
+    --sec-y:clamp(64px,11vw,140px);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:var(--font-sans);
+    font-weight:400;
+    letter-spacing:-0.02em;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  .wrap{max-width:1200px;margin:0 auto;padding-left:var(--pad-x);padding-right:var(--pad-x)}
+  a{color:inherit;text-decoration:none}
+
+  /* nav rule bar */
+  .nav{border-top:1.5px solid var(--ash);border-bottom:1.5px solid var(--ash)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:18px;padding-bottom:18px;flex-wrap:wrap}
+  .nav .brand{font-family:var(--font-serif);font-size:20px;color:var(--blue);letter-spacing:-0.02em}
+  .nav .navlabels{display:flex;gap:clamp(16px,3vw,40px);flex-wrap:wrap}
+  .nav .navlabels a{font-size:13px;font-weight:300;color:var(--blue);text-transform:uppercase;letter-spacing:0.04em}
+  .nav .navlabels a:hover{opacity:.6}
+
+  /* hero */
+  .hero{padding-top:var(--sec-y);padding-bottom:var(--sec-y);text-align:center}
+  .kicker{font-size:13px;font-weight:300;color:var(--blue);text-transform:uppercase;letter-spacing:0.18em;margin-bottom:clamp(28px,5vw,52px)}
+  .hero h1{
+    font-family:var(--font-serif);
+    font-weight:300;
+    color:var(--blue);
+    font-size:clamp(40px,8.4vw,104px);
+    line-height:1.0;
+    letter-spacing:-0.03em;
+  }
+  .hero h1 .num{font-family:'Playfair Display',serif;font-weight:500;font-style:italic}
+  .hero h1 .l2{display:block;margin-top:.12em}
+  .hero .meta{display:flex;justify-content:center;gap:clamp(28px,6vw,72px);flex-wrap:wrap;margin-top:clamp(40px,6vw,64px)}
+  .hero .meta .item{text-align:center}
+  .hero .meta .lab{font-size:12px;font-weight:300;color:var(--blue);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px}
+  .hero .meta .val{font-family:var(--font-sans);font-weight:300;font-size:clamp(16px,2vw,20px);color:var(--ink);max-width:240px}
+  .cta-row{margin-top:clamp(44px,7vw,68px);display:flex;justify-content:center;gap:18px;flex-wrap:wrap}
+
+  /* pill button */
+  .btn{
+    display:inline-block;
+    border:1.5px solid var(--blue);
+    border-radius:60px;
+    padding:15px 42px;
+    color:var(--blue);
+    font-family:var(--font-sans);
+    font-weight:400;
+    font-size:16px;
+    letter-spacing:-0.01em;
+    background:transparent;
+    transition:background .2s ease,color .2s ease;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .btn:hover{background:var(--blue);color:var(--cream)}
+  .btn.ghost{border-color:var(--ash);color:var(--ink)}
+  .btn.ghost:hover{background:transparent;border-color:var(--blue);color:var(--blue)}
+
+  /* generic section */
+  section{border-top:1.5px solid var(--ash)}
+  .sec-head{text-align:center;padding-top:var(--sec-y);margin-bottom:clamp(40px,6vw,68px)}
+  .sec-head .eyebrow{font-size:12px;font-weight:300;color:var(--blue);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:20px}
+  .sec-head h2{font-family:var(--font-serif);font-weight:300;color:var(--blue);font-size:clamp(30px,5vw,62px);line-height:1.0;letter-spacing:-0.02em}
+
+  /* tiers */
+  .tiers{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1.5px solid var(--ash);border-bottom:none}
+  .tier{padding:clamp(30px,4vw,52px) clamp(26px,3.4vw,46px) clamp(38px,5vw,58px)}
+  .tier:first-child{border-right:1.5px solid var(--ash)}
+  .tier .ttag{font-size:12px;font-weight:300;color:var(--blue);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:18px}
+  .tier h3{font-family:var(--font-serif);font-weight:300;color:var(--ink);font-size:clamp(26px,3.4vw,40px);line-height:1.05;margin-bottom:8px}
+  .tier .period{font-size:14px;font-weight:300;color:var(--blue);margin-bottom:clamp(26px,3.4vw,40px)}
+  .benefit{display:flex;align-items:baseline;justify-content:space-between;gap:18px;padding:18px 0;border-top:1px solid var(--ash)}
+  .benefit .bd{font-size:clamp(15px,1.7vw,18px);font-weight:400;max-width:62%}
+  .benefit .bv{font-family:'Playfair Display',serif;font-style:italic;font-weight:500;color:var(--blue);font-size:clamp(26px,3.6vw,44px);line-height:1;white-space:nowrap}
+  .benefit .bv small{font-style:normal;font-family:var(--font-sans);font-weight:300;font-size:13px;color:var(--blue);display:block;text-align:right;letter-spacing:0}
+  .tier .note{font-size:13px;font-weight:300;color:#555;line-height:1.5;margin-top:clamp(24px,3vw,34px);margin-bottom:clamp(24px,3vw,32px)}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(28px,4vw,56px)}
+  .step .n{font-family:'Playfair Display',serif;font-style:italic;font-weight:500;color:var(--blue);font-size:clamp(48px,6vw,80px);line-height:1;margin-bottom:20px}
+  .step h4{font-family:var(--font-sans);font-weight:500;font-size:clamp(18px,2vw,21px);color:var(--ink);margin-bottom:12px}
+  .step p{font-size:15px;font-weight:300;color:#333;line-height:1.55}
+
+  /* reward list */
+  .rewards{max-width:760px;margin:0 auto}
+  .reward{display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding:26px 0;border-top:1px solid var(--ash)}
+  .reward:last-child{border-bottom:1px solid var(--ash)}
+  .reward .rd{font-size:clamp(16px,2vw,20px);font-weight:300;max-width:70%}
+  .reward .rv{font-family:'Playfair Display',serif;font-style:italic;font-weight:500;color:var(--blue);font-size:clamp(22px,3vw,34px);white-space:nowrap}
+
+  /* about */
+  .about-body{max-width:600px;margin:0 auto;text-align:center}
+  .about-body p{font-size:clamp(16px,2vw,18px);font-weight:300;line-height:1.6;color:var(--ink)}
+  .about-body .btn{margin-top:clamp(34px,4vw,46px)}
+
+  /* final cta */
+  .final{text-align:center}
+  .final h2{font-family:var(--font-serif);font-weight:300;color:var(--blue);font-size:clamp(32px,6vw,84px);line-height:1.0;letter-spacing:-0.03em;max-width:14ch;margin:0 auto}
+
+  /* footer */
+  footer{border-top:1.5px solid var(--ash)}
+  footer .wrap{padding-top:48px;padding-bottom:64px}
+  footer .fine{max-width:760px;font-size:12px;font-weight:300;color:#777;line-height:1.7}
+  footer .copy{margin-top:28px;font-size:12px;font-weight:300;color:var(--blue);text-transform:uppercase;letter-spacing:0.08em}
+
+  .pad-b{padding-bottom:var(--sec-y)}
+
+  @media (max-width:720px){
+    .tiers{grid-template-columns:1fr}
+    .tier:first-child{border-right:none;border-bottom:1.5px solid var(--ash)}
+    .steps{grid-template-columns:1fr;gap:clamp(34px,8vw,44px)}
+    .benefit .bd{max-width:58%}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav">
+  <div class="wrap">
+    <div class="brand">OpenSquilla</div>
+    <div class="navlabels">
+      <a href="#tiers">福利</a>
+      <a href="#how">怎么参与</a>
+      <a href="#about">关于项目</a>
+      <a href="#github">GitHub</a>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">产品体验官邀请计划</div>
+    <h1>进群即送 <span class="num">70</span> 元 API Key<span class="l2">每天抽 ChatGPT 会员</span></h1>
+    <div class="meta">
+      <div class="item">
+        <div class="lab">产品体验群 · 30 天</div>
+        <div class="val">入群即享，每日开奖 1 个 ChatGPT Plus</div>
+      </div>
+      <div class="item">
+        <div class="lab">创始用户群 · 60 天</div>
+        <div class="val">进阶档位，最高每月抽 2 个 ChatGPT Pro（$200）</div>
+      </div>
+    </div>
+    <div class="cta-row">
+      <a href="#join" class="btn">加入产品体验群</a>
+      <a href="#github" class="btn ghost">在 GitHub 支持项目</a>
+    </div>
+  </div>
+</header>
+
+<!-- TIERS -->
+<section id="tiers">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">两档福利</div>
+      <h2>对号入座，按档领奖</h2>
+    </div>
+    <div class="tiers">
+      <div class="tier">
+        <div class="ttag">入门档 · 人人可进</div>
+        <h3>产品体验群</h3>
+        <div class="period">活动周期 30 天 · 入群即享</div>
+        <div class="benefit">
+          <div class="bd">进群即送 OpenRouter API Key</div>
+          <div class="bv">70<small>元 / 充好额度</small></div>
+        </div>
+        <div class="benefit">
+          <div class="bd">每天抽 1 个 ChatGPT Plus</div>
+          <div class="bv">$20<small>每日开奖</small></div>
+        </div>
+        <p class="note">充好额度的 Key 直接用，跑通你的第一个 AI Agent。入群即可参与每日抽奖。</p>
+        <a href="#join" class="btn">加入体验群</a>
+      </div>
+      <div class="tier">
+        <div class="ttag">进阶档 · 审核进入</div>
+        <h3>创始用户群</h3>
+        <div class="period">活动周期 60 天 · 审核进入</div>
+        <div class="benefit">
+          <div class="bd">每天抽 2 个 ChatGPT Plus</div>
+          <div class="bv">$20<small>每日 ×2</small></div>
+        </div>
+        <div class="benefit">
+          <div class="bd">每周抽 2 个 ChatGPT Pro</div>
+          <div class="bv">$100<small>每周 ×2</small></div>
+        </div>
+        <div class="benefit">
+          <div class="bd">每月抽 2 个 ChatGPT Pro</div>
+          <div class="bv">$200<small>每月 ×2</small></div>
+        </div>
+        <p class="note">完成体验任务、提交有效反馈，审核通过即进阶。入群即可参与每日抽奖。</p>
+        <a href="#how" class="btn">了解进阶条件</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section id="how">
+  <div class="wrap pad-b">
+    <div class="sec-head">
+      <div class="eyebrow">三步上车</div>
+      <h2>怎么参与</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="n">01</div>
+        <h4>加入产品体验群</h4>
+        <p>领 70 元 API Key，解锁 30 天每日抽奖资格。</p>
+      </div>
+      <div class="step">
+        <div class="n">02</div>
+        <h4>部署并跑通</h4>
+        <p>装好 OpenSquilla，跑通你的第一个场景，记录遇到的问题和脑洞玩法。</p>
+      </div>
+      <div class="step">
+        <div class="n">03</div>
+        <h4>提交反馈进阶</h4>
+        <p>网页问卷提交反馈，审核通过进创始用户群，奖励翻倍。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REWARDS -->
+<section id="rewards">
+  <div class="wrap pad-b">
+    <div class="sec-head">
+      <h2>贡献有奖</h2>
+    </div>
+    <div class="rewards">
+      <div class="reward">
+        <div class="rd">产品建议 / 创意场景 / 优质 MetaSkill 被采纳</div>
+        <div class="rv">$20 Plus</div>
+      </div>
+      <div class="reward">
+        <div class="rd">改进方案被纳入下一个版本更新</div>
+        <div class="rv">$100 Pro</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap pad-b">
+    <div class="sec-head">
+      <div class="eyebrow">顺便认识一下</div>
+      <h2>OpenSquilla 是什么</h2>
+    </div>
+    <div class="about-body">
+      <p>一个让 AI Agent「少烧钱、少作妖、真交付」的开源框架。智能模型路由——简单任务交给便宜模型，复杂任务才上 Claude / GPT；用 MetaSkill 把工作流编排成可靠步骤；内置安全防护，管住乱来的指令和高风险调用。</p>
+      <a href="#github" class="btn ghost">在 GitHub 查看项目</a>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="join">
+  <div class="wrap" style="padding-top:var(--sec-y);padding-bottom:var(--sec-y)">
+    <div class="final">
+      <h2>现在加入，领你的 70 元 API Key</h2>
+      <div class="cta-row">
+        <a href="#join" class="btn">加入产品体验群</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="fine">
+      ChatGPT 会员通过苹果 / 谷歌美区礼品卡发放，需确认你的 Apple ID 或 Google Play 账号支持美区充值，充值与订阅由本人自行完成；账号地区或支付问题需自行处理。奖品不折现、不兑换现金。活动最终解释权归 OpenSquilla 项目方。
+    </div>
+    <div class="copy">OpenSquilla · 产品体验官邀请计划</div>
+  </div>
+</footer>
+
+</body>
+</html>
