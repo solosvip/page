@@ -1,0 +1,978 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>支付宝购买美区苹果礼品卡充值 ChatGPT 教程</title>
+  <meta name="description" content="用支付宝购买美区 Apple 礼品卡，充值到美区 Apple 账户余额，再通过 ChatGPT iOS App 升级 Plus 或 Pro。">
+  <style>
+    :root {
+      --indigo: #4570ff;
+      --orange: #ff6808;
+      --lime: #c6ff94;
+      --lavender: #ebdcff;
+      --ice: #d6e0ff;
+      --lilac: #c293f1;
+      --navy: #193f78;
+      --sage: #244f47;
+      --bone: #f1f0ec;
+      --paper: #ffffff;
+      --ink: #000000;
+      --hairline: #e5e7eb;
+      --smoke: #6e6d6c;
+      --graphite: #555555;
+      --max: 1200px;
+      color-scheme: light;
+      font-family: Inter, "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.55;
+      letter-spacing: 0;
+    }
+
+    button,
+    input {
+      font: inherit;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .shell {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid rgba(229, 231, 235, 0.82);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--indigo);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      color: var(--graphite);
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      padding: 8px 12px;
+      border-radius: 999px;
+    }
+
+    .nav-links a:hover {
+      background: var(--bone);
+      color: var(--ink);
+    }
+
+    .pill {
+      border: 0;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 12px 24px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease;
+    }
+
+    .pill:hover {
+      transform: translateY(-1px);
+    }
+
+    .pill-primary {
+      background: var(--indigo);
+      color: white;
+    }
+
+    .pill-secondary {
+      background: var(--bone);
+      color: var(--ink);
+    }
+
+    .hero {
+      padding: 74px 0 58px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--bone);
+      color: var(--graphite);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--orange);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 980px;
+      margin: 22px auto 18px;
+      font-size: clamp(42px, 6vw, 72px);
+      line-height: 1.02;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .hero .accent {
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero .accent::after {
+      content: "";
+      position: absolute;
+      left: 3%;
+      right: 1%;
+      bottom: 5px;
+      height: 14px;
+      border-radius: 999px;
+      background: rgba(255, 104, 8, 0.28);
+      z-index: -1;
+      transform: rotate(-1.5deg);
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 0 auto 28px;
+      color: var(--smoke);
+      font-size: 19px;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .copy-panel {
+      margin: 42px auto 0;
+      max-width: 940px;
+      border-radius: 40px;
+      background: var(--bone);
+      padding: 24px;
+      text-align: left;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .copy-panel small {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--orange);
+      font-weight: 700;
+    }
+
+    .code-box {
+      overflow-wrap: anywhere;
+      font-size: 15px;
+      color: var(--graphite);
+    }
+
+    .toast {
+      min-height: 22px;
+      margin-top: 10px;
+      color: var(--sage);
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .overview {
+      padding: 48px 0 72px;
+      background: var(--bone);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .section-title h2 {
+      margin-bottom: 0;
+      font-size: clamp(32px, 4vw, 48px);
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .section-title p {
+      max-width: 430px;
+      margin-bottom: 0;
+      color: var(--smoke);
+    }
+
+    .flow-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .flow-card {
+      min-height: 190px;
+      padding: 22px;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: var(--ink);
+    }
+
+    .flow-card:nth-child(1) {
+      background: var(--lavender);
+    }
+
+    .flow-card:nth-child(2) {
+      background: var(--ice);
+    }
+
+    .flow-card:nth-child(3) {
+      background: var(--lilac);
+    }
+
+    .flow-card:nth-child(4) {
+      background: var(--navy);
+      color: white;
+    }
+
+    .flow-card b {
+      font-size: 14px;
+      color: inherit;
+      opacity: 0.72;
+    }
+
+    .flow-card h3 {
+      margin: 36px 0 8px;
+      font-size: 24px;
+      line-height: 1.18;
+    }
+
+    .flow-card p {
+      margin: 0;
+      color: inherit;
+      opacity: 0.78;
+      font-size: 14px;
+    }
+
+    .step-section {
+      padding: 78px 0;
+    }
+
+    .step-section.dark {
+      background: var(--ink);
+      color: white;
+      border-radius: 40px 40px 0 0;
+    }
+
+    .step-section.dark .section-title p,
+    .step-section.dark .muted,
+    .step-section.dark .step-list li {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .split.reverse {
+      grid-template-columns: minmax(320px, 1.05fr) minmax(0, 0.95fr);
+    }
+
+    .instruction-card {
+      border-radius: 20px;
+      padding: 24px;
+      background: var(--paper);
+      border: 1px solid var(--hairline);
+      color: var(--ink);
+    }
+
+    .step-section.dark .instruction-card {
+      background: #111111;
+      border-color: rgba(255, 255, 255, 0.14);
+      color: white;
+    }
+
+    .instruction-card.orange {
+      background: var(--orange);
+      color: var(--ink);
+      border-color: transparent;
+    }
+
+    .instruction-card.bone {
+      background: var(--bone);
+      border-color: transparent;
+    }
+
+    .instruction-card h3 {
+      margin-bottom: 14px;
+      font-size: 28px;
+      line-height: 1.2;
+    }
+
+    .step-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .step-list li {
+      position: relative;
+      padding-left: 34px;
+      color: var(--graphite);
+    }
+
+    .step-list li::before {
+      content: counter(step);
+      counter-increment: step;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 23px;
+      height: 23px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .step-list {
+      counter-reset: step;
+    }
+
+    .dark .step-list li::before {
+      background: white;
+      color: var(--ink);
+    }
+
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .screenshot-grid.single {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .phone-shot {
+      border-radius: 28px;
+      padding: 12px;
+      background: var(--paper);
+      border: 1px solid var(--hairline);
+    }
+
+    .dark .phone-shot {
+      background: #161616;
+      border-color: rgba(255, 255, 255, 0.14);
+    }
+
+    .phone-shot button {
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: zoom-in;
+    }
+
+    .phone-shot img {
+      width: 100%;
+      border-radius: 20px;
+      aspect-ratio: 1290 / 2796;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .caption {
+      margin: 10px 4px 2px;
+      color: var(--smoke);
+      font-size: 14px;
+    }
+
+    .dark .caption {
+      color: rgba(255, 255, 255, 0.66);
+    }
+
+    .price-strip {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .price-card {
+      border-radius: 20px;
+      padding: 20px;
+      background: var(--bone);
+    }
+
+    .price-card b {
+      display: block;
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+
+    .price-card p {
+      margin: 0;
+      color: var(--smoke);
+      font-size: 14px;
+    }
+
+    .upgrade-band {
+      padding: 82px 0;
+      background: var(--bone);
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .compare-card {
+      border-radius: 20px;
+      padding: 24px;
+      background: white;
+      min-height: 230px;
+    }
+
+    .compare-card.dark-card {
+      background: var(--ink);
+      color: white;
+    }
+
+    .compare-card h3 {
+      font-size: 28px;
+      line-height: 1.18;
+      margin-bottom: 16px;
+    }
+
+    .check-list {
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+      list-style: none;
+    }
+
+    .check-list li {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 10px;
+      align-items: start;
+      color: var(--graphite);
+    }
+
+    .dark-card .check-list li {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .mark {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .dark-card .mark {
+      background: white;
+      color: var(--ink);
+    }
+
+    .warning {
+      margin-top: 22px;
+      border-radius: 20px;
+      background: var(--sage);
+      color: white;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .warning p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    .footer {
+      padding: 38px 0;
+      background: var(--ink);
+      color: white;
+    }
+
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      display: none;
+      place-items: center;
+      padding: 24px;
+      background: rgba(0, 0, 0, 0.82);
+    }
+
+    .lightbox.open {
+      display: grid;
+    }
+
+    .lightbox img {
+      max-height: 92vh;
+      width: auto;
+      border-radius: 18px;
+      background: white;
+    }
+
+    .lightbox button {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      border: 0;
+      background: white;
+      color: var(--ink);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 28px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      .nav {
+        min-height: 64px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .copy-panel,
+      .split,
+      .split.reverse,
+      .comparison,
+      .warning {
+        grid-template-columns: 1fr;
+      }
+
+      .flow-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .section-title {
+        display: block;
+      }
+
+      .section-title p {
+        margin-top: 10px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .shell {
+        width: min(100% - 28px, var(--max));
+      }
+
+      .hero {
+        padding-top: 50px;
+      }
+
+      h1 {
+        font-size: 40px;
+      }
+
+      .lead {
+        font-size: 16px;
+      }
+
+      .topbar .pill-secondary {
+        display: none;
+      }
+
+      .copy-panel {
+        border-radius: 28px;
+        padding: 18px;
+      }
+
+      .flow-grid,
+      .screenshot-grid,
+      .price-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .step-section,
+      .upgrade-band {
+        padding: 54px 0;
+      }
+
+      .step-section.dark {
+        border-radius: 28px 28px 0 0;
+      }
+
+      .phone-shot {
+        border-radius: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell nav">
+      <a class="brand" href="#top" aria-label="回到顶部">
+        <span class="brand-mark">A</span>
+        <span>美区礼品卡充值教程</span>
+      </a>
+      <nav class="nav-links" aria-label="页面导航">
+        <a href="#buy">购买礼品卡</a>
+        <a href="#redeem">充值账户</a>
+        <a href="#upgrade">升级会员</a>
+      </nav>
+      <a class="pill pill-secondary" href="#help">卡住怎么办</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="shell">
+        <span class="eyebrow"><span class="dot"></span> 支付宝购买美区 Apple Gift Card</span>
+        <h1>把美区 Apple 余额变成 <span class="accent">ChatGPT Plus / Pro</span></h1>
+        <p class="lead">这是一条主流程：复制支付宝口令，进入 PockytShop 小程序购买 App Store &amp; iTunes USA 礼品卡，兑换到美区 Apple 账户，再在 ChatGPT iOS App 里升级会员。</p>
+        <div class="hero-actions">
+          <button class="pill pill-primary" type="button" data-copy="# https://www.wmslz.com/s/IKKSCcx19n7#✔復制✔此消息，打开支 f u ~保🔍搜，体验PockytShop小程序  y:/D CA7114 $796">复制支付宝口令</button>
+          <a class="pill pill-secondary" href="#buy">看操作流程</a>
+        </div>
+        <div class="copy-panel" aria-label="支付宝口令">
+          <div>
+            <small>支付宝口令</small>
+            <div class="code-box"># https://www.wmslz.com/s/IKKSCcx19n7#✔復制✔此消息，打开支 f u ~保🔍搜，体验PockytShop小程序  y:/D CA7114 $796</div>
+            <div class="toast" aria-live="polite"></div>
+          </div>
+          <button class="pill pill-primary" type="button" data-copy="# https://www.wmslz.com/s/IKKSCcx19n7#✔復制✔此消息，打开支 f u ~保🔍搜，体验PockytShop小程序  y:/D CA7114 $796">复制</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="overview" aria-labelledby="overview-title">
+      <div class="shell">
+        <div class="section-title">
+          <h2 id="overview-title">整条路径只分四步</h2>
+          <p>如果你已经有兑换码，可以直接从第二步开始。</p>
+        </div>
+        <div class="flow-grid">
+          <article class="flow-card">
+            <b>01</b>
+            <div>
+              <h3>支付宝买卡</h3>
+              <p>复制口令，进入小程序，选择 App Store &amp; iTunes USA。</p>
+            </div>
+          </article>
+          <article class="flow-card">
+            <b>02</b>
+            <div>
+              <h3>兑换余额</h3>
+              <p>在 App Store 账户页兑换充值卡或代码。</p>
+            </div>
+          </article>
+          <article class="flow-card">
+            <b>03</b>
+            <div>
+              <h3>打开 ChatGPT</h3>
+              <p>登录要升级的账号，进入订阅页面。</p>
+            </div>
+          </article>
+          <article class="flow-card">
+            <b>04</b>
+            <div>
+              <h3>确认付款</h3>
+              <p>通过 App Store 付款，优先扣 Apple 账户余额。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="step-section" id="buy" aria-labelledby="buy-title">
+      <div class="shell">
+        <div class="section-title">
+          <h2 id="buy-title">先在支付宝买美区 Apple 礼品卡</h2>
+          <p>买卡时选择页面里显示的金额，Plus 和 Pro 都按 ChatGPT App 里的实际价格准备余额。</p>
+        </div>
+        <div class="split">
+          <div>
+            <article class="instruction-card orange">
+              <h3>购买步骤</h3>
+              <ol class="step-list">
+                <li>复制页面上方的支付宝口令。</li>
+                <li>打开支付宝。</li>
+                <li>自动跳转到购买小程序。</li>
+                <li>在小程序里选择 App Store &amp; iTunes USA。</li>
+                <li>选择金额。</li>
+                <li>用支付宝付款。</li>
+                <li>付款完成后，复制礼品卡兑换码。</li>
+              </ol>
+            </article>
+            <div class="price-strip">
+              <div class="price-card">
+                <b>Plus</b>
+                <p>按 ChatGPT App 页面显示的 Plus 价格准备余额。</p>
+              </div>
+              <div class="price-card">
+                <b>Pro</b>
+                <p>按 ChatGPT App 页面显示的 Pro 价格准备余额。</p>
+              </div>
+            </div>
+          </div>
+          <div class="screenshot-grid">
+            <figure class="phone-shot">
+              <button type="button" data-lightbox="https://sfobsidian2.oss-cn-hangzhou.aliyuncs.com/obsidian/page/chatgpt-apple-gift-card/img-1.png" aria-label="放大 PockytShop 首页截图">
+                <img src="https://sfobsidian2.oss-cn-hangzhou.aliyuncs.com/obsidian/page/chatgpt-apple-gift-card/img-1.png" alt="PockytShop 小程序首页，页面里可以看到 App Store & iTunes USA 礼品卡。">
+              </button>
+              <figcaption class="caption">进入 PockytShop 后，选择 App Store &amp; iTunes USA。</figcaption>
+            </figure>
+            <figure class="phone-shot">
+              <button type="button" data-lightbox="https://sfobsidian2.oss-cn-hangzhou.aliyuncs.com/obsidian/page/chatgpt-apple-gift-card/img-2.png" aria-label="放大礼品卡金额截图">
+                <img src="https://sfobsidian2.oss-cn-hangzhou.aliyuncs.com/obsidian/page/chatgpt-apple-gift-card/img-2.png" alt="App Store & iTunes US 礼品卡金额选择页面。">
+              </button>
+              <figcaption class="caption">按实际需要选择金额，付款后复制兑换码。</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="step-section dark" id="redeem" aria-labelledby="redeem-title">
+      <div class="shell">
+        <div class="section-title">
+          <h2 id="redeem-title">再把兑换码充进美区 Apple 账户</h2>
+          <p>这一步在 iPhone 或 iPad 的 App Store 里完成，确认当前登录的是美区 Apple 账户。</p>
+        </div>
+        <div class="split reverse">
+          <div class="screenshot-grid">
+            <figure class="phone-shot">
+              <button type="button" data-lightbox="https://sfobsidian2.oss-cn-hangzhou.aliyuncs.com/obsidian/page/chatgpt-apple-gift-card/img-3.png" aria-label="放大 App Store 账户页截图">
+                <img src="https://sfobsidian2.oss-cn-hangzhou.aliyuncs.com/obsidian/page/chatgpt-apple-gift-card/img-3.png" alt="App Store 账户页，显示兑换充值卡或代码入口。">
+              </button>
+              <figcaption class="caption">点击 App Store 右上角头像，进入账户页。</figcaption>
+            </figure>
+            <figure class="phone-shot">
+              <button type="button" data-lightbox="https://sfobsidian2.oss-cn-hangzhou.aliyuncs.com/obsidian/page/chatgpt-apple-gift-card/img-4.png" aria-label="放大兑换充值卡页面截图">
+                <img src="https://sfobsidian2.oss-cn-hangzhou.aliyuncs.com/obsidian/page/chatgpt-apple-gift-card/img-4.png" alt="兑换充值卡页面，底部有手动输入兑换码按钮。">
+              </button>
+              <figcaption class="caption">选择手动输入兑换码。</figcaption>
+            </figure>
+            <figure class="phone-shot">
+              <button type="button" data-lightbox="https://sfobsidian2.oss-cn-hangzhou.aliyuncs.com/obsidian/page/chatgpt-apple-gift-card/img-5.png" aria-label="放大使用兑换码页面截图">
+                <img src="https://sfobsidian2.oss-cn-hangzhou.aliyuncs.com/obsidian/page/chatgpt-apple-gift-card/img-5.png" alt="使用兑换码页面，可以输入 Apple Gift Card 兑换码。">
+              </button>
+              <figcaption class="caption">粘贴兑换码后点击兑换。</figcaption>
+            </figure>
+          </div>
+          <article class="instruction-card">
+            <h3>充值步骤</h3>
+            <ol class="step-list">
+              <li>打开 iPhone 或 iPad 上的 App Store。</li>
+              <li>确认当前登录的是美区 Apple 账户。</li>
+              <li>点击右上角头像。</li>
+              <li>点击兑换礼品卡或代码。</li>
+              <li>选择手动输入代码。</li>
+              <li>粘贴支付宝里拿到的兑换码。</li>
+              <li>点击兑换。</li>
+              <li>兑换成功后，余额会进入这个美区 Apple 账户。</li>
+            </ol>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="upgrade-band" id="upgrade" aria-labelledby="upgrade-title">
+      <div class="shell">
+        <div class="section-title">
+          <h2 id="upgrade-title">最后在 ChatGPT App 里升级</h2>
+          <p>会员升级和付款都在 ChatGPT iOS App 里完成，付款页面显示 App Store 后再确认。</p>
+        </div>
+        <div class="comparison">
+          <article class="compare-card">
+            <h3>打开 ChatGPT</h3>
+            <ul class="check-list">
+              <li><span class="mark">1</span><span>打开 ChatGPT iOS App。</span></li>
+              <li><span class="mark">2</span><span>登录要升级的 ChatGPT 账号。</span></li>
+              <li><span class="mark">3</span><span>进入账号或订阅页面。</span></li>
+              <li><span class="mark">4</span><span>选择升级 Plus 或升级 Pro。</span></li>
+            </ul>
+          </article>
+          <article class="compare-card dark-card">
+            <h3>确认付款</h3>
+            <ul class="check-list">
+              <li><span class="mark">5</span><span>确认页面显示的是 App Store 付款。</span></li>
+              <li><span class="mark">6</span><span>用 Face ID、Touch ID 或 Apple ID 密码确认付款。</span></li>
+              <li><span class="mark">7</span><span>系统会优先使用美区 Apple 账户余额扣款。</span></li>
+            </ul>
+          </article>
+        </div>
+        <div class="warning" id="help">
+          <div>
+            <h3>卡住时怎么处理</h3>
+            <p>如果你的页面和教程不一样，或者卡在某一步，不要自己乱试，直接截图发给 AI，让 AI 根据截图判断下一步。</p>
+          </div>
+          <a class="pill pill-primary" href="#top">回到口令</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-row">
+      <span>支付宝购买美区苹果礼品卡充值 ChatGPT 教程</span>
+      <span>主流程版</span>
+    </div>
+  </footer>
+
+  <div class="lightbox" aria-hidden="true">
+    <button type="button" aria-label="关闭大图">×</button>
+    <img src="" alt="">
+  </div>
+
+  <script>
+    const copyButtons = document.querySelectorAll("[data-copy]");
+    const toast = document.querySelector(".toast");
+
+    copyButtons.forEach((button) => {
+      button.addEventListener("click", async () => {
+        const text = button.getAttribute("data-copy");
+        try {
+          await navigator.clipboard.writeText(text);
+          if (toast) toast.textContent = "已复制，打开支付宝继续。";
+        } catch (error) {
+          if (toast) toast.textContent = "复制失败，请手动复制上面的口令。";
+        }
+      });
+    });
+
+    const lightbox = document.querySelector(".lightbox");
+    const lightboxImage = lightbox.querySelector("img");
+    const closeLightbox = lightbox.querySelector("button");
+
+    document.querySelectorAll("[data-lightbox]").forEach((button) => {
+      button.addEventListener("click", () => {
+        lightboxImage.src = button.getAttribute("data-lightbox");
+        lightboxImage.alt = button.querySelector("img").alt;
+        lightbox.classList.add("open");
+        lightbox.setAttribute("aria-hidden", "false");
+      });
+    });
+
+    function closePreview() {
+      lightbox.classList.remove("open");
+      lightbox.setAttribute("aria-hidden", "true");
+      lightboxImage.src = "";
+    }
+
+    closeLightbox.addEventListener("click", closePreview);
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) closePreview();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && lightbox.classList.contains("open")) closePreview();
+    });
+  </script>
+</body>
+</html>
