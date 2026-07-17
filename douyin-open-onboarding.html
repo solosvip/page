@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="荣悦台抖音开放平台企业入驻关键步骤">
+  <title>抖音开放平台账号申请流程</title>
+  <style>
+    :root {
+      --ink: #111111;
+      --body: #374151;
+      --muted: #6b7280;
+      --muted-soft: #898989;
+      --line: #e5e7eb;
+      --line-soft: #f3f4f6;
+      --canvas: #ffffff;
+      --soft: #f8f9fa;
+      --card: #f5f5f5;
+      --dark: #101010;
+      --dark-elevated: #1a1a1a;
+      --blue: #3b82f6;
+      --warning: #f59e0b;
+      --success: #10b981;
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      --shadow: 0 4px 12px rgba(0, 0, 0, .08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--canvas);
+      color: var(--ink);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(1200px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      height: 64px;
+      background: rgba(255, 255, 255, .94);
+      border-bottom: 1px solid var(--line-soft);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-inner {
+      width: min(1200px, calc(100% - 48px));
+      height: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 650;
+      letter-spacing: -.02em;
+    }
+
+    .brand-logo {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .stage-nav {
+      display: flex;
+      gap: 4px;
+      padding: 5px;
+      border-radius: 999px;
+      background: var(--soft);
+    }
+
+    .stage-nav span {
+      padding: 7px 13px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 550;
+    }
+
+    .stage-nav .active {
+      background: #fff;
+      color: var(--ink);
+      box-shadow: 0 1px 2px rgba(0,0,0,.08);
+    }
+
+    .hero {
+      padding: 96px 0;
+      display: grid;
+      grid-template-columns: minmax(0, 7fr) minmax(360px, 5fr);
+      gap: 68px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 22px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: var(--card);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--warning);
+    }
+
+    h1 {
+      max-width: 720px;
+      margin-bottom: 24px;
+      font-size: clamp(42px, 5.5vw, 64px);
+      font-weight: 650;
+      line-height: 1.05;
+      letter-spacing: -.045em;
+    }
+
+    .hero-lead {
+      max-width: 690px;
+      margin-bottom: 28px;
+      color: var(--body);
+      font-size: 19px;
+      line-height: 1.6;
+    }
+
+    .scope-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      padding: 13px 16px;
+      border-radius: var(--radius-md);
+      background: var(--ink);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .scope-note svg { flex: 0 0 auto; }
+
+    .mockup {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .mockup-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 48px;
+      padding: 0 16px;
+      border-bottom: 1px solid var(--line);
+      background: var(--soft);
+    }
+
+    .window-dots { display: flex; gap: 7px; }
+    .window-dots i { width: 9px; height: 9px; border-radius: 50%; background: #d1d5db; }
+    .window-dots i:first-child { background: #fb923c; }
+    .mockup-label { color: var(--muted); font-size: 12px; font-weight: 600; }
+
+    .mini-flow { padding: 26px; }
+
+    .mini-step {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .mini-step:last-child { border-bottom: 0; }
+
+    .mini-number {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--card);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .mini-step.active .mini-number { background: var(--ink); color: #fff; }
+    .mini-copy strong { display: block; font-size: 14px; }
+    .mini-copy span { color: var(--muted); font-size: 12px; }
+
+    .section {
+      padding: 96px 0;
+      border-top: 1px solid var(--line-soft);
+    }
+
+    .section.alt { background: var(--soft); }
+
+    .section-head {
+      max-width: 780px;
+      margin-bottom: 46px;
+    }
+
+    .section-kicker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 650;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .step-circle {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: #fff;
+      font-size: 12px;
+    }
+
+    h2 {
+      margin-bottom: 14px;
+      font-size: clamp(34px, 4vw, 48px);
+      font-weight: 650;
+      line-height: 1.1;
+      letter-spacing: -.04em;
+    }
+
+    .section-lead {
+      margin-bottom: 0;
+      color: var(--body);
+      font-size: 18px;
+    }
+
+    .path-widget {
+      margin-bottom: 28px;
+      padding: 8px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--soft);
+    }
+
+    .path-item {
+      position: relative;
+      min-height: 84px;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      background: #fff;
+    }
+
+    .path-item:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      right: -13px;
+      display: grid;
+      place-items: center;
+      width: 20px;
+      height: 20px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: #fff;
+      color: var(--muted);
+      font-size: 11px;
+      transform: translateY(-50%);
+    }
+
+    .path-item small {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--muted-soft);
+      font-size: 11px;
+      font-weight: 650;
+      letter-spacing: .06em;
+    }
+
+    .path-item strong { font-size: 15px; }
+    .path-item.current { background: var(--ink); color: #fff; }
+    .path-item.current small { color: #a1a1aa; }
+
+    .screenshot-card {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    }
+
+    .screenshot-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius-lg);
+      cursor: zoom-in;
+    }
+
+    .warning {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 16px;
+      margin-top: 24px;
+      padding: 22px;
+      border: 1px solid #fcd34d;
+      border-radius: var(--radius-lg);
+      background: #fffbeb;
+    }
+
+    .warning-mark {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-md);
+      background: var(--warning);
+      font-weight: 750;
+    }
+
+    .warning h3 { margin-bottom: 4px; font-size: 17px; }
+    .warning p { margin-bottom: 0; color: var(--body); }
+
+    .account-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(360px, .92fr);
+      gap: 26px;
+      align-items: start;
+    }
+
+    .form-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: #fff;
+    }
+
+    .form-card-head {
+      padding: 20px 22px;
+      border-bottom: 1px solid var(--line);
+      font-size: 15px;
+      font-weight: 650;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 145px 1fr;
+      gap: 18px;
+      padding: 21px 22px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .field-row:last-child { border-bottom: 0; }
+    .field-name { font-weight: 650; }
+    .field-value { color: var(--body); }
+
+    .control-card {
+      margin-top: 18px;
+      padding: 22px;
+      border-radius: var(--radius-lg);
+      background: var(--card);
+    }
+
+    .control-card h3 { margin-bottom: 7px; font-size: 18px; }
+    .control-card p { margin-bottom: 0; color: var(--body); }
+
+    .handoff {
+      padding: 96px 0;
+    }
+
+    .handoff-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(360px, .74fr);
+      gap: 32px;
+      padding: 48px;
+      border-radius: var(--radius-lg);
+      background: var(--card);
+    }
+
+    .handoff-card h2 { font-size: clamp(32px, 4vw, 44px); }
+    .handoff-card .section-lead { margin-bottom: 28px; }
+
+    .checklist {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .checklist li {
+      position: relative;
+      margin-top: 10px;
+      padding: 13px 14px 13px 44px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: #fff;
+    }
+
+    .checklist li::before {
+      content: "✓";
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      display: grid;
+      place-items: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #d1fae5;
+      color: #047857;
+      font-size: 11px;
+      font-weight: 800;
+      transform: translateY(-50%);
+    }
+
+    code {
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      background: var(--soft);
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 13px;
+    }
+
+    .handoff-status {
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 350px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    }
+
+    .status-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #ffedd5;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .status-label::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #fb923c;
+    }
+
+    .status-main strong {
+      display: block;
+      margin: 14px 0 8px;
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: -.03em;
+    }
+
+    .status-main p { margin-bottom: 0; color: var(--muted); }
+
+    .status-footer {
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer {
+      padding: 64px 0;
+      background: var(--dark);
+      color: #a1a1aa;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .footer-brand {
+      margin-bottom: 10px;
+      color: #fff;
+      font-size: 22px;
+      font-weight: 650;
+      letter-spacing: -.03em;
+    }
+
+    .footer p { max-width: 580px; margin-bottom: 0; }
+    .footer-tag { padding: 6px 10px; border-radius: 999px; background: var(--dark-elevated); font-size: 12px; }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      background: rgba(0,0,0,.9);
+      cursor: zoom-out;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 92vh;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 20px 70px rgba(0,0,0,.5);
+    }
+
+    @media (max-width: 920px) {
+      .hero { grid-template-columns: 1fr; gap: 46px; }
+      .mockup { max-width: 620px; }
+      .account-layout, .handoff-card { grid-template-columns: 1fr; }
+      .handoff-status { min-height: 260px; }
+    }
+
+    @media (max-width: 700px) {
+      .container, .nav-inner { width: min(100% - 28px, 1200px); }
+      .stage-nav span:not(.active) { display: none; }
+      .hero { padding: 64px 0; }
+      h1 { font-size: 42px; }
+      .section { padding: 68px 0; }
+      .path-widget { grid-template-columns: 1fr; }
+      .path-item:not(:last-child)::after { content: "↓"; top: auto; right: 16px; bottom: -13px; transform: none; }
+      .account-layout { grid-template-columns: 1fr; }
+      .field-row { grid-template-columns: 1fr; gap: 5px; }
+      .handoff { padding: 68px 0; }
+      .handoff-card { padding: 28px 20px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="brand"><span class="brand-logo">RY</span>荣悦台接入准备</div>
+      <div class="stage-nav" aria-label="接入阶段">
+        <span class="active">1 企业入驻</span>
+        <span>2 绑定开发者</span>
+        <span>3 API 接入</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="container hero">
+      <div>
+        <div class="badge"><span class="badge-dot"></span>当前只做第一阶段</div>
+        <h1>抖音开放平台账号申请流程</h1>
+        <p class="hero-lead">荣悦台只负责完成抖音开放平台企业入驻。当前还没有开放平台账号，不能绑定开发者。</p>
+        <div class="scope-note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          入驻审核通过后，后续操作全部由我们负责
+        </div>
+      </div>
+
+      <div class="mockup" aria-label="接入流程状态">
+        <div class="mockup-bar">
+          <div class="window-dots"><i></i><i></i><i></i></div>
+          <div class="mockup-label">接入进度</div>
+        </div>
+        <div class="mini-flow">
+          <div class="mini-step active"><span class="mini-number">1</span><div class="mini-copy"><strong>企业入驻</strong><span>当前需要完成</span></div></div>
+          <div class="mini-step"><span class="mini-number">2</span><div class="mini-copy"><strong>绑定开发者</strong><span>入驻成功后由我们操作</span></div></div>
+          <div class="mini-step"><span class="mini-number">3</span><div class="mini-copy"><strong>创建应用</strong><span>由我们操作</span></div></div>
+          <div class="mini-step"><span class="mini-number">4</span><div class="mini-copy"><strong>API 测试</strong><span>由我们操作</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="entry">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-kicker"><span class="step-circle">1</span>第一步</div>
+          <h2>从抖音来客进入入驻页面</h2>
+          <p class="section-lead">登录荣悦台的抖音来客后台，依次进入：</p>
+        </div>
+
+        <div class="path-widget" aria-label="操作路径">
+          <div class="path-item"><small>01</small><strong>店铺管理</strong></div>
+          <div class="path-item"><small>02</small><strong>合作与授权</strong></div>
+          <div class="path-item"><small>03</small><strong>自研 SaaS 绑定</strong></div>
+          <div class="path-item current"><small>04</small><strong>入驻开放平台</strong></div>
+        </div>
+
+        <div class="screenshot-card">
+          <img src="https://sfobsidian2.oss-cn-hangzhou.aliyuncs.com/obsidian/page/douyin-open-onboarding/img-1.png" alt="抖音来客合作与授权页面中的自研 SaaS 绑定和入驻开放平台入口" loading="lazy">
+        </div>
+
+        <aside class="warning">
+          <div class="warning-mark">!</div>
+          <div>
+            <h3>现在不要点击“绑定开发者”</h3>
+            <p>“绑定开发者”只适用于已经拥有抖音开放平台账号的情况。荣悦台当前尚未入驻，应先点击“入驻开放平台”。</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section alt" id="account">
+      <div class="container">
+        <div class="section-head">
+          <div class="section-kicker"><span class="step-circle">2</span>第二步</div>
+          <h2>设置开放平台登录账号</h2>
+          <p class="section-lead">页面底部的“注册入驻信息”用于自动创建抖音开放平台账号。</p>
+        </div>
+
+        <div class="account-layout">
+          <div>
+            <div class="form-card" role="table" aria-label="注册字段填写方式">
+              <div class="form-card-head">填写说明</div>
+              <div class="field-row" role="row"><div class="field-name" role="cell">手机号</div><div class="field-value" role="cell">优先填写当前抖音来客管理员使用、且公司可以长期控制的手机号</div></div>
+              <div class="field-row" role="row"><div class="field-name" role="cell">验证码</div><div class="field-value" role="cell">点击“发送验证码”，由手机号持有人提供本次验证码</div></div>
+              <div class="field-row" role="row"><div class="field-name" role="cell">设置登录密码</div><div class="field-value" role="cell">设置专门用于抖音开放平台的密码</div></div>
+              <div class="field-row" role="row"><div class="field-name" role="cell">再次确认密码</div><div class="field-value" role="cell">与上一项完全一致</div></div>
+            </div>
+            <aside class="control-card">
+              <h3>账号必须长期可控</h3>
+              <p>后续登录开放平台、绑定来客和处理审核问题都可能需要验证码。不要使用临时手机号，也不要使用离职后无法找回的个人手机号。</p>
+            </aside>
+          </div>
+
+          <div class="screenshot-card">
+            <img src="https://sfobsidian2.oss-cn-hangzhou.aliyuncs.com/obsidian/page/douyin-open-onboarding/img-2.png" alt="抖音开放平台注册入驻信息表单" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="handoff">
+      <div class="container handoff-card">
+        <div>
+          <div class="section-kicker"><span class="step-circle">✓</span>入驻成功以后</div>
+          <h2>后面由我们操作</h2>
+          <p class="section-lead">入驻审核通过后，我们继续使用这个账号完成：</p>
+          <ol class="checklist">
+            <li>在抖音来客绑定开发者</li>
+            <li>进入抖音开放平台开发者后台</li>
+            <li>创建“生活服务商家应用”</li>
+            <li>申请线索查询解决方案和 <code>life.crm.clue.query</code> 权限</li>
+          </ol>
+          <p class="section-lead" style="margin-top:24px">绑定开发者、创建应用、申请接口权限和真实 API 测试，全部由我们负责。</p>
+        </div>
+
+        <div class="handoff-status">
+          <div class="status-main">
+            <span class="status-label">交接节点</span>
+            <strong>企业入驻审核通过</strong>
+            <p>到这里，荣悦台本阶段的任务完成。</p>
+          </div>
+          <div class="status-footer">下一阶段由技术方继续推进</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="footer-brand">荣悦台接入准备</div>
+        <p>抖音开放平台企业入驻关键步骤。审核通过后的开发者绑定、应用创建、权限申请和 API 测试由技术方完成。</p>
+      </div>
+      <span class="footer-tag">第一阶段 · 企业入驻</span>
+    </div>
+  </footer>
+
+  <div class="lightbox" role="dialog" aria-modal="true" aria-label="图片预览">
+    <img src="" alt="放大预览">
+  </div>
+
+  <script>
+    const lightbox = document.querySelector('.lightbox');
+    const preview = lightbox.querySelector('img');
+
+    document.querySelectorAll('.screenshot-card img').forEach((image) => {
+      image.addEventListener('click', () => {
+        preview.src = image.src;
+        preview.alt = image.alt;
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closePreview() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+      preview.src = '';
+    }
+
+    lightbox.addEventListener('click', closePreview);
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closePreview();
+    });
+  </script>
+</body>
+</html>
